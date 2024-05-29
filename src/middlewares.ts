@@ -3,6 +3,7 @@ import { HttpError } from "./shared/http-error";
 import rateLimit from "express-rate-limit";
 import slowDown from "express-slow-down";
 import { verifyToken } from "./shared/jwt";
+import { BadRequestError } from "./shared/bad-request-error";
 
 const notFound = (req: Request, res: Response, next: NextFunction) => {
   res.status(404);
@@ -27,7 +28,16 @@ const authToken = (req: Request, res: Response, next: NextFunction) => {
   if (!valid) {
     return res
       .status(401)
-      .json({ message: "Unauthorized: Invalid or expired token." });
+      .json({ message: "Unauthorized: Invalid or expired token. 🔐" });
+  }
+
+  const allowedLocations = ["sv"];
+
+  //@ts-ignore
+  if (!allowedLocations.includes(decoded?.location)) {
+    return res
+      .status(401)
+      .json({ message: "Unauthorized: Invalid location. 🔐" });
   }
 
   req.headers.authorization = JSON.stringify(decoded);
@@ -41,15 +51,24 @@ const errorHandler = (
   res: Response,
   __: NextFunction
 ) => {
+  if (err instanceof BadRequestError) {
+    const { errors, stack } = err as BadRequestError;
+    return res.status(400).json({
+      message: "Bad request error",
+      errors,
+      stack: process.env.NODE_ENV === "production" ? "🥞" : stack,
+    });
+  }
+
   if (err instanceof HttpError) {
     const { code, message, stack } = err as HttpError;
-    res.status(code).json({
+    return res.status(code).json({
       message,
       stack: process.env.NODE_ENV === "production" ? "🥞" : stack,
     });
   } else {
     const { stack } = err;
-    res.status(500).json({
+    return res.status(500).json({
       message: err.message,
       stack: process.env.NODE_ENV === "production" ? "🥞" : stack,
     });
