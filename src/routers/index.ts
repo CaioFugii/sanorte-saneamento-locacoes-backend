@@ -4,6 +4,7 @@ const router = Router();
 
 router.get("/login", (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req.headers.authorization);
     const response = {
       message: "Success login",
     };
@@ -15,6 +16,7 @@ router.get("/login", (req: Request, res: Response, next: NextFunction) => {
 
 router.get("/services", (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req.headers.authorization);
     const response = {
       message: "😀🤠🤯🧐",
     };

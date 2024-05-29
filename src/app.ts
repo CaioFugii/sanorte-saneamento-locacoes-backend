@@ -30,8 +30,8 @@ app.get(
   }
 );
 
-app.use("/api/", router);
 app.use(middlewares.authToken);
+app.use("/api/", router);
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
