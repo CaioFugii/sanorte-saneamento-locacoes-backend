@@ -5,6 +5,7 @@ import helmet from "helmet";
 import cors from "cors";
 import middlewares from "./middlewares";
 import router from "./routers";
+import { generateToken } from "./shared/jwt";
 
 const app = express();
 
@@ -19,9 +20,9 @@ app.get(
   "/",
   middlewares.limiter,
   middlewares.speedLimiter,
-  middlewares.authToken,
+  // middlewares.authToken,
   (_: Request, res: Response) => {
-    res.json({
+    res.status(200).json({
       message: "🤯",
     });
   }

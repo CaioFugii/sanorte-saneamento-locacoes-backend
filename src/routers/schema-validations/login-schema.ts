@@ -1,13 +1,13 @@
 import { ZodIssue, z } from "zod";
 
 const LoginSchema = z.object({
-  location: z.string({
-    invalid_type_error: "location must be a string",
-    required_error: "location is required",
+  user: z.string({
+    invalid_type_error: "user must be a string",
+    required_error: "user is required",
   }),
-  role: z.string({
-    invalid_type_error: "role must be a string",
-    required_error: "role is required",
+  password: z.string({
+    invalid_type_error: "password must be a string",
+    required_error: "password is required",
   }),
 });
 

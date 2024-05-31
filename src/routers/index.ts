@@ -1,36 +1,20 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { HttpError } from "../shared/http-error";
 import middlewares from "../middlewares";
-import { generateToken } from "../shared/jwt";
-import { LoginSchemaValidator } from "./schema-validations/login-schema";
-import { BadRequestError } from "../shared/bad-request-error";
+import { LoginUseCase } from "../usecase/login.usecase";
+import { ListServicesUseCase } from "../usecase/list-services.usecase";
+import { RegisterServicesUseCase } from "../usecase/register-services.usecase";
+import { ServicesRepository } from "../repository/services.repository";
+import { connectionPool } from "../repository/database-connection";
 
 const router = Router();
 
 router.post("/login", (req: Request, res: Response, next: NextFunction) => {
   try {
-    const body = req.body;
-
-    const { valid, errors } = LoginSchemaValidator.validate(body);
-
-    if (!valid) {
-      throw new BadRequestError(errors);
-    }
-
-    const location = req.body.location;
-
-    const allowedLocations = ["sv"];
-
-    if (!allowedLocations.includes(location)) {
-      throw new HttpError("Invalid location", 400);
-    }
-
-    const response = {
-      token: generateToken({
-        location: req.body.location,
-        role: req.body.role,
-      }),
-    };
+    const usecase = new LoginUseCase();
+    const response = usecase.execute({
+      user: req.body.user,
+      password: req.body.password,
+    });
     return res.status(200).json(response);
   } catch (error) {
     next(error);
@@ -40,13 +24,28 @@ router.post("/login", (req: Request, res: Response, next: NextFunction) => {
 router.get(
   "/services",
   middlewares.authToken,
-  (req: Request, res: Response, next: NextFunction) => {
+  (_: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(req.headers.authorization);
-      const response = {
-        message: "😀🤠🤯🧐",
-      };
-      return res.json(response);
+      const repository = new ServicesRepository(connectionPool);
+      const usecase = new ListServicesUseCase(repository);
+      const response = usecase.execute({});
+
+      return res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post(
+  "/services",
+  middlewares.authToken,
+  (_: Request, res: Response, next: NextFunction) => {
+    try {
+      const repository = new ServicesRepository(connectionPool);
+      const usecase = new RegisterServicesUseCase(repository);
+      const response = usecase.execute({});
+      return res.status(200).json(response);
     } catch (error) {
       next(error);
     }

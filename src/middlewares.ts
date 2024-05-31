@@ -31,15 +31,6 @@ const authToken = (req: Request, res: Response, next: NextFunction) => {
       .json({ message: "Unauthorized: Invalid or expired token. 🔐" });
   }
 
-  const allowedLocations = ["sv"];
-
-  //@ts-ignore
-  if (!allowedLocations.includes(decoded?.location)) {
-    return res
-      .status(401)
-      .json({ message: "Unauthorized: Invalid location. 🔐" });
-  }
-
   req.headers.authorization = JSON.stringify(decoded);
 
   next();
