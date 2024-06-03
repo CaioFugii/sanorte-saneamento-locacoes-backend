@@ -2,9 +2,9 @@ import { ServicesRepository } from "../repository/services.repository";
 
 export class RegisterServicesUseCase {
   constructor(repository: ServicesRepository) {}
-  execute(payload: any) {
-    return {
-      payload,
-    };
+  async execute(pathFile: string): Promise<void> {
+    console.log(pathFile);
+    Promise.resolve();
+    return;
   }
 }

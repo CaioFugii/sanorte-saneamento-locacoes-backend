@@ -8,7 +8,7 @@ const PORT = Number(process.env.PORT);
 
 const bootstrap = async () => {
   try {
-    await initializeConnectionPool();
+    // await initializeConnectionPool();
     app.listen(PORT, () => {
       console.log(`Server running on port: ${PORT}`);
     });

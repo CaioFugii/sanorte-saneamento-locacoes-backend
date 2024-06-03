@@ -5,7 +5,6 @@ import helmet from "helmet";
 import cors from "cors";
 import middlewares from "./middlewares";
 import router from "./routers";
-import { generateToken } from "./shared/jwt";
 
 const app = express();
 
