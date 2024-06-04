@@ -7,14 +7,10 @@ import { ServicesRepository } from "../repository/services.repository";
 import { connectionPool } from "../repository/database-connection";
 import multer from "multer";
 import path from "path";
-import { send } from "process";
 
 const storage = multer.diskStorage({
   destination: function (_, __, cb) {
-    const folderPath =
-      process.env.NODE_ENV !== "local"
-        ? path.join(process.cwd(), "dist", "tmp")
-        : path.join(process.cwd(), "src", "tmp");
+    const folderPath = path.join(__dirname, "../tmp");
     cb(null, folderPath);
   },
   filename: function (_, file, cb) {
