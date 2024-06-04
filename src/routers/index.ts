@@ -88,9 +88,10 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { path } = req.file;
+      const { location } = JSON.parse(req.headers.authorization);
       const repository = new ServicesRepository(connectionPool);
       const usecase = new RegisterServicesUseCase(repository);
-      await usecase.execute(path);
+      await usecase.execute(path, location);
       return res.status(200).send();
     } catch (error) {
       next(error);

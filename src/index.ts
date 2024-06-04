@@ -1,14 +1,11 @@
 import app from "./app";
-import {
-  closeConnectionPool,
-  initializeConnectionPool,
-} from "./repository/database-connection";
+import { connectionPool } from "./repository/database-connection";
 
 const PORT = Number(process.env.PORT);
 
 const bootstrap = async () => {
   try {
-    // await initializeConnectionPool();
+    await connectionPool.connect();
     app.listen(PORT, () => {
       console.log(`Server running on port: ${PORT}`);
     });
@@ -17,13 +14,5 @@ const bootstrap = async () => {
     process.exit(1);
   }
 };
-
-process.on("SIGTERM", () => {
-  closeConnectionPool().then(() => process.exit(0));
-});
-
-process.on("SIGINT", () => {
-  closeConnectionPool().then(() => process.exit(0));
-});
 
 bootstrap();
