@@ -15,9 +15,17 @@ export class ServicesRepository {
   constructor(public databaseConnection: Pool) {
     this.databaseConnection = databaseConnection;
   }
-  async find(payload: any) {
+  async find(filter: {
+    location: string[];
+    range: { from: string; to: string };
+  }) {
     try {
-      return payload;
+      const location = filter.location
+        .map((location) => `'${location}'`)
+        .join(", ");
+      const query = `SELECT * FROM completed_services WHERE origin IN (${location}) AND finish_date >= '${filter.range.from}' AND finish_date <= '${filter.range.to}' ORDER BY finish_date ASC`;
+      const result = await this.databaseConnection.query(query);
+      return result.rows ?? [];
     } catch (error) {
       throw error;
     }
@@ -27,8 +35,8 @@ export class ServicesRepository {
     try {
       for (const item of payload) {
         const query = `
-          INSERT INTO completed_services (origin, order_service, start_date, finish_date, address, city, status, result, created_at)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+          INSERT INTO completed_services (origin, order_service, start_date, finish_date, address, city, status, result, created_at) 
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) ON CONFLICT DO NOTHING
         `;
         const values = [
           item.origin,

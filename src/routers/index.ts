@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
 import middlewares from "../middlewares";
 import { LoginUseCase } from "../usecase/login.usecase";
-import { ListServicesUseCase } from "../usecase/list-services.usecase";
-import { RegisterServicesUseCase } from "../usecase/register-services.usecase";
+import { ListCompletedServicesUseCase } from "../usecase/list-services.usecase";
+import { RegisterCompletedServicesUseCase } from "../usecase/register-completed-services.usecase";
 import { ServicesRepository } from "../repository/services.repository";
 import { connectionPool } from "../repository/database-connection";
 import multer from "multer";
@@ -64,11 +64,29 @@ router.post("/login", (req: Request, res: Response, next: NextFunction) => {
 router.get(
   "/services",
   middlewares.authToken,
-  (_: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const { location, role } = JSON.parse(req.headers.authorization);
+
+      const rangeFrom = (req.query?.from as string) || "";
+      const rangeTo = (req.query?.to as string) || "";
+
+      let filterLocation = null;
+      if (role === "admin" && location === "*") {
+        filterLocation = [
+          "Santos - Cubatão",
+          "São Sebastião - Ilha bela",
+          "São Vicente",
+        ];
+      } else {
+        filterLocation = [location];
+      }
       const repository = new ServicesRepository(connectionPool);
-      const usecase = new ListServicesUseCase(repository);
-      const response = usecase.execute({});
+      const usecase = new ListCompletedServicesUseCase(repository);
+      const response = await usecase.execute({
+        location: filterLocation,
+        range: { from: rangeFrom, to: rangeTo },
+      });
 
       return res.status(200).json(response);
     } catch (error) {
@@ -86,7 +104,7 @@ router.post(
       const { path } = req.file;
       const { location } = JSON.parse(req.headers.authorization);
       const repository = new ServicesRepository(connectionPool);
-      const usecase = new RegisterServicesUseCase(repository);
+      const usecase = new RegisterCompletedServicesUseCase(repository);
       await usecase.execute(path, location);
       return res.status(200).send();
     } catch (error) {
