@@ -246,7 +246,8 @@ export class ListCompletedServicesUseCase {
 
   static updateSummary(dataArray: any[]) {
     dataArray.forEach((data) => {
-      data.values.forEach((value) => {
+      data.values.forEach((value, index) => {
+        let classification = "";
         const startDate = parseISO(value.start_date);
         const finishDate = parseISO(value.finish_date);
 
@@ -254,53 +255,70 @@ export class ListCompletedServicesUseCase {
           const duration = differenceInHours(finishDate, startDate);
           if (duration > 96) {
             data.summary["late"] += 1;
+            classification = "late";
           } else if (duration <= 24) {
             data.summary["até 24 horas"] += 1;
+            classification = "até 24 horas";
           } else if (duration <= 48) {
             data.summary["até 48 horas"] += 1;
+            classification = "até 48 horas";
           } else if (duration <= 96) {
             data.summary["até 96 horas"] += 1;
+            classification = "até 96 horas";
           }
           data.summary["total"] += 1;
         } else if (data.tableName === "ARSESP - ESGOTO") {
           const duration = differenceInHours(finishDate, startDate);
           if (duration > 96) {
             data.summary["late"] += 1;
+            classification = "late";
           } else if (duration <= 24) {
             data.summary["até 24 horas"] += 1;
+            classification = "até 24 horas";
           } else if (duration <= 48) {
             data.summary["até 48 horas"] += 1;
+            classification = "até 48 horas";
           } else if (duration <= 96) {
             data.summary["até 96 horas"] += 1;
+            classification = "até 96 horas";
           }
           data.summary["total"] += 1;
         } else if (data.tableName === "ARSESP - REPOSIÇÃO") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 20) {
             data.summary["late"] += 1;
+            classification = "late";
           } else if (duration <= 6) {
             data.summary["até 6 dias"] += 1;
+            classification = "até 6 dias";
           } else if (duration <= 20) {
             data.summary["até 20 dias"] += 1;
+            classification = "até 20 dias";
           }
           data.summary["total"] += 1;
         } else if (data.tableName === "LIGAÇÃO DE AGUA") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 10) {
             data.summary["late"] += 1;
+            classification = "late";
           } else if (duration <= 10) {
             data.summary["até 10 dias"] += 1;
+            classification = "até 10 dias";
           }
           data.summary["total"] += 1;
         } else if (data.tableName === "LIGAÇÃO DE ESGOTO") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 10) {
             data.summary["late"] += 1;
+            classification = "late";
           } else if (duration <= 10) {
             data.summary["até 10 dias"] += 1;
+            classification = "até 10 dias";
           }
           data.summary["total"] += 1;
         }
+
+        data.values[index].classification = classification;
         //falta agua geral e esgoto geral
       });
     });

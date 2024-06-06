@@ -15,7 +15,7 @@ export const startRoutine = () => {
 
       await repository.deleteItems(oneMonthAgo);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   });
 };
