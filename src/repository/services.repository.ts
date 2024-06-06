@@ -58,4 +58,14 @@ export class ServicesRepository {
       throw error;
     }
   }
+
+  async deleteItems(date: string) {
+    try {
+      const query = `delete from completed_services where finish_date <= '${date}'`;
+      console.log(query);
+      await this.databaseConnection.query(query);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
