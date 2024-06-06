@@ -1,4 +1,10 @@
-import { add, differenceInDays, format, isBefore } from "date-fns";
+import {
+  add,
+  differenceInDays,
+  differenceInHours,
+  isBefore,
+  parseISO,
+} from "date-fns";
 import { format as formatTz } from "date-fns-tz";
 import { ServicesRepository } from "../repository/services.repository";
 import { HttpError } from "../shared/http-error";
@@ -152,8 +158,8 @@ export class ListCompletedServicesUseCase {
     }
 
     const filterDate = {
-      from: new Date(filter.range?.from),
-      to: add(new Date(filter.range?.to), { hours: 20 }),
+      from: add(new Date(filter.range?.from), { hours: 3 }),
+      to: add(new Date(filter.range?.to), { hours: 26, minutes: 58 }),
     };
 
     const valid = ListCompletedServicesUseCase.validateDates(filterDate);
@@ -178,7 +184,7 @@ export class ListCompletedServicesUseCase {
     Object.keys(mappedMetrics).forEach((type) => {
       const summary = mappedMetrics[type].values.reduce(
         (a, v) => ({ ...a, [`até ${v} ${mappedMetrics[type].type}`]: 0 }),
-        { late: 0 }
+        { late: 0, total: 0 }
       );
 
       let collection = {
@@ -192,7 +198,7 @@ export class ListCompletedServicesUseCase {
       }
     });
 
-    return result;
+    return ListCompletedServicesUseCase.updateSummary(result);
   }
 
   static validateDates(range: { from: Date; to: Date }): boolean {
@@ -200,14 +206,16 @@ export class ListCompletedServicesUseCase {
       return false;
     }
 
-    if (differenceInDays(range.from, range.to) >= 32) {
+    if (differenceInDays(range.to, range.from) >= 32) {
       return false;
     }
     return true;
   }
 
   static formatDate(date: Date): string {
-    return format(date, "yyyy-MM-dd");
+    return formatTz(date, "yyyy-MM-dd HH:mm:ss", {
+      timeZone: "America/Sao_Paulo",
+    });
   }
 
   static mapTypeService(data: {
@@ -236,20 +244,67 @@ export class ListCompletedServicesUseCase {
     };
   }
 
-  // static checkLateService(
-  //   metrics: { type: string; values: number[] },
-  //   dataValues: { start: Date; end: Date }
-  // ) {
-  //   const { type, values } = metrics;
+  static updateSummary(dataArray: any[]) {
+    dataArray.forEach((data) => {
+      data.values.forEach((value) => {
+        const startDate = parseISO(value.start_date);
+        const finishDate = parseISO(value.finish_date);
 
-  //   if (type === "days") {
-  //     differenceInDays();
-  //   }
+        if (data.tableName === "ARSESP - AGUA") {
+          const duration = differenceInHours(finishDate, startDate);
+          if (duration > 96) {
+            data.summary["late"] += 1;
+          } else if (duration <= 24) {
+            data.summary["até 24 horas"] += 1;
+          } else if (duration <= 48) {
+            data.summary["até 48 horas"] += 1;
+          } else if (duration <= 96) {
+            data.summary["até 96 horas"] += 1;
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "ARSESP - ESGOTO") {
+          const duration = differenceInHours(finishDate, startDate);
+          if (duration > 96) {
+            data.summary["late"] += 1;
+          } else if (duration <= 24) {
+            data.summary["até 24 horas"] += 1;
+          } else if (duration <= 48) {
+            data.summary["até 48 horas"] += 1;
+          } else if (duration <= 96) {
+            data.summary["até 96 horas"] += 1;
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "ARSESP - REPOSIÇÃO") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 20) {
+            data.summary["late"] += 1;
+          } else if (duration <= 6) {
+            data.summary["até 6 dias"] += 1;
+          } else if (duration <= 20) {
+            data.summary["até 20 dias"] += 1;
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "LIGAÇÃO DE AGUA") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 10) {
+            data.summary["late"] += 1;
+          } else if (duration <= 10) {
+            data.summary["até 10 dias"] += 1;
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "LIGAÇÃO DE ESGOTO") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 10) {
+            data.summary["late"] += 1;
+          } else if (duration <= 10) {
+            data.summary["até 10 dias"] += 1;
+          }
+          data.summary["total"] += 1;
+        }
+        //falta agua geral e esgoto geral
+      });
+    });
 
-  //   if (type === "hours") {
-  //     differenceInHours();
-  //   }
-
-  //   return false;
-  // }
+    return dataArray;
+  }
 }

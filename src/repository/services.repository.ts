@@ -25,6 +25,7 @@ export class ServicesRepository {
         .map((location) => `'${location}'`)
         .join(", ");
       const query = `SELECT * FROM completed_services WHERE origin IN (${location}) AND finish_date >= '${filter.range.from}' AND finish_date <= '${filter.range.to}' ORDER BY finish_date DESC`;
+      console.log(query);
       const result = await this.databaseConnection.query(query);
       return result.rows ?? [];
     } catch (error) {
