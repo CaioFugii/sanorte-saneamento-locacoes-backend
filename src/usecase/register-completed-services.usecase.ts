@@ -27,6 +27,7 @@ export class RegisterCompletedServicesUseCase {
         return {
           origin,
           order_service: data["Número OS"].trim(),
+          tss: data["Descrição TSS"].trim(),
           start_date: RegisterCompletedServicesUseCase.getDate(
             data["Data Início Execução"].trim()
           ),
@@ -54,16 +55,18 @@ export class RegisterCompletedServicesUseCase {
   }
 
   static getDate(dateString: string): Date {
-    const date = dateString.split(" ")[0];
+    const [date, time] = dateString.split(" ");
+    const [hour, minute] = time.split(":").map(Number);
     const [day, month, year] = date.split("/").map(Number);
     const monthNumber = month - 1;
 
-    return new Date(year, monthNumber, day, 3, 0);
+    return new Date(year, monthNumber, day, hour, minute);
   }
 
   static checkHeaders(data: any): boolean {
     return (
       data.hasOwnProperty("Número OS") &&
+      data.hasOwnProperty("Descrição TSS") &&
       data.hasOwnProperty("Data Início Execução") &&
       data.hasOwnProperty("Data Fim Execução") &&
       data.hasOwnProperty("Endereço") &&

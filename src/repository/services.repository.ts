@@ -3,6 +3,7 @@ import { Pool } from "pg";
 type InsertPayload = {
   origin: string;
   order_service: string;
+  tss: string;
   start_date: Date;
   finish_date: Date;
   address: string;
@@ -23,7 +24,7 @@ export class ServicesRepository {
       const location = filter.location
         .map((location) => `'${location}'`)
         .join(", ");
-      const query = `SELECT * FROM completed_services WHERE origin IN (${location}) AND finish_date >= '${filter.range.from}' AND finish_date <= '${filter.range.to}' ORDER BY finish_date ASC`;
+      const query = `SELECT * FROM completed_services WHERE origin IN (${location}) AND finish_date >= '${filter.range.from}' AND finish_date <= '${filter.range.to}' ORDER BY finish_date DESC`;
       const result = await this.databaseConnection.query(query);
       return result.rows ?? [];
     } catch (error) {
@@ -35,12 +36,13 @@ export class ServicesRepository {
     try {
       for (const item of payload) {
         const query = `
-          INSERT INTO completed_services (origin, order_service, start_date, finish_date, address, city, status, result, created_at) 
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) ON CONFLICT DO NOTHING
+          INSERT INTO completed_services (origin, order_service, tss, start_date, finish_date, address, city, status, result, created_at) 
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) ON CONFLICT DO NOTHING
         `;
         const values = [
           item.origin,
           item.order_service,
+          item.tss,
           item.start_date,
           item.finish_date,
           item.address,
