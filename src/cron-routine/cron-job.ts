@@ -5,7 +5,7 @@ import { ServicesRepository } from "../repository/services.repository";
 const cron = require("node-cron");
 
 export const startRoutine = () => {
-  cron.schedule("0 0 * * 1", async () => {
+  cron.schedule("0 12 * * 1", async () => {
     try {
       console.log("startRoutine");
       const now = new Date();
