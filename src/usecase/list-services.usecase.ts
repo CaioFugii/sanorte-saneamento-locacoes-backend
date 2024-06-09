@@ -19,6 +19,7 @@ const mappedServices = {
   "REGISTRO DO CAVALETE QUEBRADO": "ARSESP - AGUA",
   "REGISTRO DO CAVALETE VAZANDO": "ARSESP - AGUA",
   "TROCAR RAMAL DE ÁGUA": "ARSESP - AGUA",
+  "HIDROMETRO VAZANDO": "ARSESP - AGUA",
   "HIDRÔMETRO VAZANDO": "ARSESP - AGUA",
   "HIDRANTE VAZANDO": "ARSESP - AGUA",
   "FALTA DE ÁGUA GERAL": "ARSESP - AGUA",
@@ -67,62 +68,61 @@ const mappedServices = {
   "LIGAÇÃO DE ESGOTO AVULSA S/V": "LIGAÇÃO DE ESGOTO",
   "LIGAÇÃO DE ESGOTO S/V": "LIGAÇÃO DE ESGOTO",
   "SUBSTITUIR LIGAÇÃO DE ESGOTO": "LIGAÇÃO DE ESGOTO",
-  "CONSTRUIR POÇO DE VISITA": "ESGOTO - GERAL",
-  "CONSTRUIR POÇO DE INSPEÇÃO": "ESGOTO - GERAL",
-  "DESCOBRIR POÇO INSPEÇÃO/VISITA": "ESGOTO - GERAL",
-  "DESCOBRIR TERMINAL DE LIMPEZA": "ESGOTO - GERAL",
-  "NIVELAR POÇO DE INSPEÇÃO/VISITA": "ESGOTO - GERAL",
-  "NIVELAR TERMINAL DE LIMPEZA": "ESGOTO - GERAL",
-  "PROLONGAR REDE DE ESGOTO": "ESGOTO - GERAL",
-  "REMANEJAR REDE DE ESGOTO": "ESGOTO - GERAL",
-  "RETIRAR ENTULHO": "ESGOTO - GERAL",
-  "SONDAR RAMAL DE ESGOTO": "ESGOTO - GERAL",
-  "SONDAR REDE DE ESGOTO": "ESGOTO - GERAL",
-  "TROCAR RAMAL DE ESGOTO": "ESGOTO - GERAL",
-  "LIGAÇÃO DE ESGOTO ADICIONAL": "ESGOTO - GERAL",
-  "TROCAR SOLO": "ESGOTO - GERAL",
-  "TROCAR SOLO INV": "ESGOTO - GERAL",
-  "TESTE DE CORANTE OP": "ESGOTO - GERAL",
-  "HIDRÔMETRO PARADO": "AGUA - GERAL",
-  "TROCAR HIDRÔMETRO PREVENTIVA": "AGUA - GERAL",
-  "HIDRÔMETRO EMBAÇADO": "AGUA - GERAL",
-  "HIDRÔMETRO INVERTIDO": "AGUA - GERAL",
-  "HIDRÔMETRO QUEBRADO": "AGUA - GERAL",
-  "INSTALAR HIDRÔMETRO DESAPARECIDO/FURTADO": "AGUA - GERAL",
-  "TROCAR CAVALETE POR UMA": "AGUA - GERAL",
-  "TROCAR CAVALETE (KIT)": "AGUA - GERAL",
-  "READEQUAR CAVALETE": "AGUA - GERAL",
-  "REATIVAR LIGAÇÃO DE ÁGUA S/V": "AGUA - GERAL",
-  "RELIGAR ÁGUA A PEDIDO DO CLIENTE": "AGUA - GERAL",
-  "RESTABELECER LIGAÇÃO MUDAN TITULARID OP": "AGUA - GERAL",
-  "RESTABELECER LIGAÇÃO OP": "AGUA - GERAL",
-  "RELIGAR ÁGUA DEB OP": "AGUA - GERAL",
-  "RELIGAR AGUA IMPEDIMENTO DE LEITURA": "AGUA - GERAL",
-  "RELIGAR AGUA MUDANÇA TITULARIDADE": "AGUA - GERAL",
-  "PROLONGAR REDE DE ÁGUA": "AGUA - GERAL",
-  "REMANEJAR REDE DE ÁGUA": "AGUA - GERAL",
-  "SONDAR RAMAL DE ÁGUA": "AGUA - GERAL",
-  "SONDAR REDE DE ÁGUA": "AGUA - GERAL",
-  "SUPRIMIR LIG AGUA DEMOLIÇÃO/UNIFICAÇÃO": "AGUA - GERAL",
-  "SUPRIMIR LIG AGUA ENCERRAMENTO CONTRATO": "AGUA - GERAL",
-  "SUPRIMIR LIGAÇÃO DE AGUA POR IMOVEL VAGO": "AGUA - GERAL",
-  "TROCAR RAMAL DE ÁGUA PREVENTIVA": "AGUA - GERAL",
-  "TROCAR RAMAL DE ÁGUA - VAZ NÃO VISIVEL": "AGUA - GERAL",
-  "VAZAMENTO DE ÁGUA NÃO VISÍVEL CAVALETE": "AGUA - GERAL",
-  "VAZAMENTO DE ÁGUA NÃO VISÍVEL RAMAL": "AGUA - GERAL",
-  "VAZAMENTO DE ÁGUA NÃO VISÍVEL REDE": "AGUA - GERAL",
-  "INSTALAR LACRE DIVERSOS": "AGUA - GERAL",
-  "INSTALAR LACRE NUMERADO": "AGUA - GERAL",
-  "REGULARIZAR CAVALETE": "AGUA - GERAL",
-  "SUBSTITUIR TAMPA DE CAIXA UMA": "AGUA - GERAL",
-  "INTERLIGAR REDE DE ÁGUA": "AGUA - GERAL",
-  "INSTALAR VÁLVULA DE REDE DE ÁGUA": "AGUA - GERAL",
-  "DESCARGA EM REDE DE ÁGUA": "AGUA - GERAL",
-  "VERIFICAR SERVIÇO SOLICITADO": "AGUA - GERAL",
-  "HIDROMETRO VAZANDO": "AGUA - GERAL",
-  "RESTABELECER LIGAÇÃO SERVIÇOS ADICIONAIS": "AGUA - GERAL",
-  "MUITA PRESSÃO DE ÁGUA": "AGUA - GERAL",
-  "VISTORIA DE ENCERRAMENTO CONTRATUAL": "AGUA - GERAL",
+  "CONSTRUIR POÇO DE VISITA": "ESGOTO - GERAL - 9 DIAS",
+  "CONSTRUIR POÇO DE INSPEÇÃO": "ESGOTO - GERAL - 9 DIAS",
+  "DESCOBRIR POÇO INSPEÇÃO/VISITA": "ESGOTO - GERAL - 9 DIAS",
+  "DESCOBRIR TERMINAL DE LIMPEZA": "ESGOTO - GERAL - 9 DIAS",
+  "NIVELAR POÇO DE INSPEÇÃO/VISITA": "ESGOTO - GERAL - 9 DIAS",
+  "NIVELAR TERMINAL DE LIMPEZA": "ESGOTO - GERAL - 9 DIAS",
+  "TESTE DE CORANTE OP": "ESGOTO - GERAL - 9 DIAS",
+  "LIGAÇÃO DE ESGOTO ADICIONAL": "ESGOTO - GERAL - 9 DIAS",
+  "PROLONGAR REDE DE ESGOTO": "ESGOTO - GERAL - 30 DIAS",
+  "REMANEJAR REDE DE ESGOTO": "ESGOTO - GERAL - 30 DIAS",
+  "RETIRAR ENTULHO": "ESGOTO - GERAL - 3 DIAS",
+  "SONDAR RAMAL DE ESGOTO": "ESGOTO - GERAL - 3 DIAS",
+  "SONDAR REDE DE ESGOTO": "ESGOTO - GERAL - 3 DIAS",
+  "TROCAR RAMAL DE ESGOTO": "ESGOTO - GERAL - 3 DIAS",
+  "TROCAR SOLO": "ESGOTO - GERAL - 3 DIAS",
+  "TROCAR SOLO INV": "ESGOTO - GERAL - 3 DIAS",
+  "HIDRÔMETRO PARADO": "AGUA - GERAL - 48 HORAS",
+  "HIDRÔMETRO EMBAÇADO": "AGUA - GERAL - 48 HORAS",
+  "HIDRÔMETRO INVERTIDO": "AGUA - GERAL - 48 HORAS",
+  "HIDRÔMETRO QUEBRADO": "AGUA - GERAL - 48 HORAS",
+  "INSTALAR HIDRÔMETRO DESAPARECIDO/FURTADO": "AGUA - GERAL - 48 HORAS",
+  "TROCAR CAVALETE (KIT)": "AGUA - GERAL - 3 DIAS",
+  "REATIVAR LIGAÇÃO DE ÁGUA S/V": "AGUA - GERAL - 3 DIAS",
+  "RELIGAR ÁGUA A PEDIDO DO CLIENTE": "AGUA - GERAL - 3 DIAS",
+  "RESTABELECER LIGAÇÃO MUDAN TITULARID OP": "AGUA - GERAL - 3 DIAS",
+  "RESTABELECER LIGAÇÃO OP": "AGUA - GERAL - 3 DIAS",
+  "RELIGAR ÁGUA DEB OP": "AGUA - GERAL - 3 DIAS",
+  "RELIGAR AGUA IMPEDIMENTO DE LEITURA": "AGUA - GERAL - 3 DIAS",
+  "RELIGAR AGUA MUDANÇA TITULARIDADE": "AGUA - GERAL - 3 DIAS",
+  "SONDAR RAMAL DE ÁGUA": "AGUA - GERAL - 3 DIAS",
+  "SONDAR REDE DE ÁGUA": "AGUA - GERAL - 3 DIAS",
+  "SUPRIMIR LIG AGUA DEMOLIÇÃO/UNIFICAÇÃO": "AGUA - GERAL - 3 DIAS",
+  "SUPRIMIR LIG AGUA ENCERRAMENTO CONTRATO": "AGUA - GERAL - 3 DIAS",
+  "SUPRIMIR LIGAÇÃO DE AGUA POR IMOVEL VAGO": "AGUA - GERAL - 3 DIAS",
+  "TROCAR RAMAL DE ÁGUA PREVENTIVA": "AGUA - GERAL - 3 DIAS",
+  "TROCAR RAMAL DE ÁGUA - VAZ NÃO VISIVEL": "AGUA - GERAL - 3 DIAS",
+  "VAZAMENTO DE ÁGUA NÃO VISÍVEL CAVALETE": "AGUA - GERAL - 3 DIAS",
+  "VAZAMENTO DE ÁGUA NÃO VISÍVEL RAMAL": "AGUA - GERAL - 3 DIAS",
+  "VAZAMENTO DE ÁGUA NÃO VISÍVEL REDE": "AGUA - GERAL - 3 DIAS",
+  "TROCAR HIDRÔMETRO PREVENTIVA": "AGUA - GERAL - 7 DIAS",
+  "TROCAR CAVALETE POR UMA": "AGUA - GERAL - 7 DIAS",
+  "INSTALAR LACRE DIVERSOS": "AGUA - GERAL - 7 DIAS",
+  "INSTALAR LACRE NUMERADO": "AGUA - GERAL - 7 DIAS",
+  "REGULARIZAR CAVALETE": "AGUA - GERAL - 7 DIAS",
+  "VERIFICAR SERVIÇO SOLICITADO": "AGUA - GERAL - 7 DIAS",
+  "RESTABELECER LIGAÇÃO SERVIÇOS ADICIONAIS": "AGUA - GERAL - 7 DIAS",
+  "MUITA PRESSÃO DE ÁGUA": "AGUA - GERAL - 7 DIAS",
+  "VISTORIA DE ENCERRAMENTO CONTRATUAL": "AGUA - GERAL - 7 DIAS",
+  "INTERLIGAR REDE DE ÁGUA": "AGUA - GERAL - 9 DIAS",
+  "INSTALAR VÁLVULA DE REDE DE ÁGUA": "AGUA - GERAL - 9 DIAS",
+  "DESCARGA EM REDE DE ÁGUA": "AGUA - GERAL - 9 DIAS",
+  "READEQUAR CAVALETE": "AGUA - GERAL - 10 DIAS",
+  "SUBSTITUIR TAMPA DE CAIXA UMA": "AGUA - GERAL - 10 DIAS",
+  "PROLONGAR REDE DE ÁGUA": "AGUA - GERAL - 30 DIAS",
+  "REMANEJAR REDE DE ÁGUA": "AGUA - GERAL - 30 DIAS",
 };
 
 const mappedMetrics = {
@@ -145,6 +145,42 @@ const mappedMetrics = {
   "LIGAÇÃO DE ESGOTO": {
     type: "dias",
     values: [10],
+  },
+  "AGUA - GERAL - 48 HORAS": {
+    type: "horas",
+    values: [48],
+  },
+  "AGUA - GERAL - 3 DIAS": {
+    type: "dias",
+    values: [3],
+  },
+  "AGUA - GERAL - 7 DIAS": {
+    type: "dias",
+    values: [7],
+  },
+  "AGUA - GERAL - 9 DIAS": {
+    type: "dias",
+    values: [9],
+  },
+  "AGUA - GERAL - 10 DIAS": {
+    type: "dias",
+    values: [10],
+  },
+  "AGUA - GERAL - 30 DIAS": {
+    type: "dias",
+    values: [30],
+  },
+  "ESGOTO - GERAL - 3 DIAS": {
+    type: "dias",
+    values: [3],
+  },
+  "ESGOTO - GERAL - 9 DIAS": {
+    type: "dias",
+    values: [9],
+  },
+  "ESGOTO - GERAL - 30 DIAS": {
+    type: "dias",
+    values: [30],
   },
 };
 export class ListCompletedServicesUseCase {
@@ -316,10 +352,98 @@ export class ListCompletedServicesUseCase {
             classification = "até 10 dias";
           }
           data.summary["total"] += 1;
+        } else if (data.tableName === "AGUA - GERAL - 48 HORAS") {
+          const duration = differenceInHours(finishDate, startDate);
+          if (duration > 48) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 48) {
+            data.summary["até 48 horas"] += 1;
+            classification = "até 48 horas";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "AGUA - GERAL - 3 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 3) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 3) {
+            data.summary["até 3 dias"] += 1;
+            classification = "até 3 dias";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "AGUA - GERAL - 7 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 7) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 7) {
+            data.summary["até 7 dias"] += 1;
+            classification = "até 7 dias";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "AGUA - GERAL - 9 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 9) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 9) {
+            data.summary["até 9 dias"] += 1;
+            classification = "até 9 dias";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "AGUA - GERAL - 10 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 10) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 10) {
+            data.summary["até 10 dias"] += 1;
+            classification = "até 10 dias";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "AGUA - GERAL - 30 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 30) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 30) {
+            data.summary["até 30 dias"] += 1;
+            classification = "até 30 dias";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "ESGOTO - GERAL - 3 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 3) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 3) {
+            data.summary["até 3 dias"] += 1;
+            classification = "até 3 dias";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "ESGOTO - GERAL - 9 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 9) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 9) {
+            data.summary["até 9 dias"] += 1;
+            classification = "até 9 dias";
+          }
+          data.summary["total"] += 1;
+        } else if (data.tableName === "ESGOTO - GERAL - 30 DIAS") {
+          const duration = differenceInDays(finishDate, startDate);
+          if (duration > 30) {
+            data.summary["late"] += 1;
+            classification = "late";
+          } else if (duration <= 30) {
+            data.summary["até 30 dias"] += 1;
+            classification = "até 30 dias";
+          }
+          data.summary["total"] += 1;
         }
-
         data.values[index].classification = classification;
-        //falta agua geral e esgoto geral
       });
     });
 
