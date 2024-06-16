@@ -14,7 +14,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:3000", "*"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Forwarded-For"],
     methods: ["GET", "POST"],
   })
