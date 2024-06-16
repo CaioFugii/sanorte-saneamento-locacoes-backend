@@ -69,6 +69,7 @@ const errorHandler = (
 const limiter = rateLimit({
   windowMs: 30 * 1000,
   max: 5,
+  validate: { xForwardedForHeader: false },
 });
 
 const speedLimiter = slowDown({
