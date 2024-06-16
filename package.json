@@ -4,7 +4,7 @@
   "description": "sanorte saneamento e locacoes",
   "main": "src/index.ts",
   "scripts": {
-    "build": "rimraf ./dist && tsc && mkdir ./dist/tmp",
+    "build": "rimraf ./dist && tsc && mkdir ./src/tmp",
     "start": "npm run build && node dist/index.js",
     "dev": "npx nodemon"
   },
