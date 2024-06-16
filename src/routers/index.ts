@@ -10,7 +10,7 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: function (_, __, cb) {
-    const folderPath = path.join(__dirname, "../tmp");
+    const folderPath = "/tmp";
     cb(null, folderPath);
   },
   filename: function (_, file, cb) {
