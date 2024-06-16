@@ -4,8 +4,8 @@
   "description": "sanorte saneamento e locacoes",
   "main": "src/index.ts",
   "scripts": {
-    "start": "npm run build && node dist/index.js",
-    "build": "tsc && mkdir ./dist/tmp",
+    "start": "mkdir ./dist/tmp && node dist/index.js",
+    "build": "tsc",
     "dev": "npx nodemon"
   },
   "author": "Caio Fugii",
