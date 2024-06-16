@@ -17,7 +17,7 @@
       "maxDuration": 30
     },
     "src/*.ts": {
-      "maxDuration": 15
+      "maxDuration": 30
     }
   }
 }
