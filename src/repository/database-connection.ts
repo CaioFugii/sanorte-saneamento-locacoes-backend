@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 
 export const connectionPool = new Pool({
-  connectionString: "postgres://postgres:secret@localhost:5432/postgres",
+  connectionString: process.env.POSTGRES_URL,
 });
 
 connectionPool.on("connect", () => {
