@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+import { Client } from "pg";
 
 type InsertPayload = {
   origin: string;
@@ -13,7 +13,7 @@ type InsertPayload = {
   created_at: Date;
 };
 export class ServicesRepository {
-  constructor(public databaseConnection: Pool) {
+  constructor(public databaseConnection: Client) {
     this.databaseConnection = databaseConnection;
   }
   async find(filter: {
