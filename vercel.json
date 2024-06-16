@@ -7,9 +7,6 @@
     }
   ],
   "functions": {
-    "src/**/*.js": {
-      "maxDuration": 30
-    },
     "src/**/*.ts": {
       "maxDuration": 30
     }
