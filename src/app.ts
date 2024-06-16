@@ -15,7 +15,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: "*",
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Forwarded-For"],
     methods: ["GET", "POST"],
   })
 );
