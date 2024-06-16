@@ -10,7 +10,7 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: function (_, __, cb) {
-    const folderPath = "./";
+    const folderPath = path.join(__dirname, "../tmp");
     cb(null, folderPath);
   },
   filename: function (_, file, cb) {
@@ -74,7 +74,7 @@ router.get(
         (req.query?.location as string) || "Santos - Cubatão";
 
       // available locations:
-      // "Santos - Cubatão"
+      //  "Santos - Cubatão"
       // "São Sebastião - Ilha bela"
       // "São Vicente"
 

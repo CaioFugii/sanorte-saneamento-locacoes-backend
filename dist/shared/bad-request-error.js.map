@@ -1,0 +1,1 @@
+{"version":3,"file":"bad-request-error.js","sourceRoot":"","sources":["../../src/shared/bad-request-error.ts"],"names":[],"mappings":";;;AAAA,6CAAyC;AAMzC,MAAa,eAAgB,SAAQ,sBAAS;IAE5C,YAAY,MAAgB;QAC1B,KAAK,CAAC,mBAAmB,EAAE,GAAG,CAAC,CAAC;QAChC,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC,WAAW,CAAC,IAAI,CAAC;QAClC,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACvB,CAAC;CACF;AAPD,0CAOC"}
