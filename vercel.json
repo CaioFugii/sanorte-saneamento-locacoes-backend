@@ -14,7 +14,14 @@
       "src": "(.*)",
       "dest": "src/index.ts",
       "headers": {
-        "x-vercel-max-duration": "35"
+        "x-vercel-max-duration": 35
+      }
+    },
+    {
+      "src": "(.*)",
+      "dest": "src/routers/index.ts",
+      "headers": {
+        "x-vercel-max-duration": 35
       }
     }
   ]
