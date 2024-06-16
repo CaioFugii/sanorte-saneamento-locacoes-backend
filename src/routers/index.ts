@@ -70,14 +70,17 @@ router.get(
 
       const rangeFrom = (req.query?.from as string) || "";
       const rangeTo = (req.query?.to as string) || "";
+      const queryLocation =
+        (req.query?.location as string) || "Santos - Cubatão";
+
+      // available locations:
+      // "Santos - Cubatão"
+      // "São Sebastião - Ilha bela"
+      // "São Vicente"
 
       let filterLocation = null;
       if (role === "admin" && location === "*") {
-        filterLocation = [
-          "Santos - Cubatão",
-          "São Sebastião - Ilha bela",
-          "São Vicente",
-        ];
+        filterLocation = [queryLocation];
       } else {
         filterLocation = [location];
       }
@@ -88,7 +91,7 @@ router.get(
         range: { from: rangeFrom, to: rangeTo },
       });
 
-      return res.status(200).json(response);
+      return res.status(200).json(response ?? []);
     } catch (error) {
       next(error);
     }
