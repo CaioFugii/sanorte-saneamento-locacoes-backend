@@ -1,14 +1,21 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 35
+      }
+    }
+  ],
   "routes": [
     {
       "src": "(.*)",
-      "dest": "src/index.ts"
+      "dest": "src/index.ts",
+      "headers": {
+        "x-vercel-max-duration": "35"
+      }
     }
-  ],
-  "functions": {
-    "api/*.ts": {
-      "maxDuration": 30
-    }
-  }
+  ]
 }
