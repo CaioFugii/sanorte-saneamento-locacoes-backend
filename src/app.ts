@@ -12,7 +12,13 @@ config();
 
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST"],
+  })
+);
 app.use(express.json());
 
 app.get(
