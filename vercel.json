@@ -7,10 +7,10 @@
     }
   ],
   "functions": {
-    "src/*.js": {
+    "src/**/*.js": {
       "maxDuration": 30
     },
-    "src/*.ts": {
+    "src/**/*.ts": {
       "maxDuration": 30
     }
   }
