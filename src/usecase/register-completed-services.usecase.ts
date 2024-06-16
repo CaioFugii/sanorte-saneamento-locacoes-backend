@@ -2,6 +2,7 @@ import { unlinkSync, existsSync } from "fs";
 import { ServicesRepository } from "../repository/services.repository";
 import { readFile, utils } from "xlsx";
 import { HttpError } from "../shared/http-error";
+import { sub } from "date-fns";
 export class RegisterCompletedServicesUseCase {
   constructor(private repository: ServicesRepository) {}
   async execute(pathFile: string, origin: string): Promise<void> {
@@ -45,6 +46,11 @@ export class RegisterCompletedServicesUseCase {
       });
 
       await this.repository.insertCompletedServices(dataToSave);
+
+      const now = new Date();
+      const oneMonthAgo = sub(now, { days: 32 }).toISOString();
+
+      await this.repository.deleteItems(oneMonthAgo);
     } catch (error) {
       throw error;
     } finally {
