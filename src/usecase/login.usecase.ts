@@ -11,32 +11,17 @@ export class LoginUseCase {
       throw new BadRequestError(errors);
     }
 
-    const allowedUsers = [
-      {
-        user: "admin@sanorte-saneamento",
-        correctPassword: "SN2504",
-        location: "*",
-        role: "admin",
-      },
-      {
-        user: "operator-SC@sanorte-saneamento",
-        correctPassword: "SC2504",
-        location: "Santos - Cubatão",
-        role: "operator",
-      },
-      {
-        user: "operator-SI@sanorte-saneamento",
-        correctPassword: "SI2504",
-        location: "São Sebastião - Ilha bela",
-        role: "operator",
-      },
-      {
-        user: "operator-SV@sanorte-saneamento",
-        correctPassword: "SV2504",
-        location: "São Vicente",
-        role: "operator",
-      },
-    ];
+    const allowedUsers = String(process.env.ALLOWED_USERS)
+      .split(";")
+      .map((value) => {
+        const [user, correctPassword, location, role] = value.split(":");
+        return {
+          user,
+          correctPassword,
+          location,
+          role,
+        };
+      });
 
     const foundUser = allowedUsers.find(
       ({ user, correctPassword }) =>
