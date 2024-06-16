@@ -13,10 +13,10 @@
     }
   ],
   "functions": {
-    "api/*.js": {
+    "src/*.js": {
       "maxDuration": 30
     },
-    "api/*.ts": {
+    "src/*.ts": {
       "maxDuration": 15
     }
   }
