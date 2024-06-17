@@ -220,7 +220,7 @@ export class ListCompletedServicesUseCase {
     Object.keys(mappedMetrics).forEach((type) => {
       const summary = mappedMetrics[type].values.reduce(
         (a, v) => ({ ...a, [`até ${v} ${mappedMetrics[type].type}`]: 0 }),
-        { late: 0, total: 0 }
+        { Atrasados: 0, Total: 0 }
       );
 
       let collection = {
@@ -290,8 +290,8 @@ export class ListCompletedServicesUseCase {
         if (data.tableName === "ARSESP - AGUA") {
           const duration = differenceInHours(finishDate, startDate);
           if (duration > 96) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 24) {
             data.summary["até 24 horas"] += 1;
             classification = "até 24 horas";
@@ -302,12 +302,12 @@ export class ListCompletedServicesUseCase {
             data.summary["até 96 horas"] += 1;
             classification = "até 96 horas";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "ARSESP - ESGOTO") {
           const duration = differenceInHours(finishDate, startDate);
           if (duration > 96) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 24) {
             data.summary["até 24 horas"] += 1;
             classification = "até 24 horas";
@@ -318,12 +318,12 @@ export class ListCompletedServicesUseCase {
             data.summary["até 96 horas"] += 1;
             classification = "até 96 horas";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "ARSESP - REPOSIÇÃO") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 20) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 6) {
             data.summary["até 6 dias"] += 1;
             classification = "até 6 dias";
@@ -331,117 +331,117 @@ export class ListCompletedServicesUseCase {
             data.summary["até 20 dias"] += 1;
             classification = "até 20 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "LIGAÇÃO DE AGUA") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 10) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 10) {
             data.summary["até 10 dias"] += 1;
             classification = "até 10 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "LIGAÇÃO DE ESGOTO") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 10) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 10) {
             data.summary["até 10 dias"] += 1;
             classification = "até 10 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 48 HORAS") {
           const duration = differenceInHours(finishDate, startDate);
           if (duration > 48) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 48) {
             data.summary["até 48 horas"] += 1;
             classification = "até 48 horas";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 3 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 3) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 3) {
             data.summary["até 3 dias"] += 1;
             classification = "até 3 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 7 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 7) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 7) {
             data.summary["até 7 dias"] += 1;
             classification = "até 7 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 9 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 9) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 9) {
             data.summary["até 9 dias"] += 1;
             classification = "até 9 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 10 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 10) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 10) {
             data.summary["até 10 dias"] += 1;
             classification = "até 10 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 30 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 30) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 30) {
             data.summary["até 30 dias"] += 1;
             classification = "até 30 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "ESGOTO - GERAL - 3 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 3) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 3) {
             data.summary["até 3 dias"] += 1;
             classification = "até 3 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "ESGOTO - GERAL - 9 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 9) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 9) {
             data.summary["até 9 dias"] += 1;
             classification = "até 9 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         } else if (data.tableName === "ESGOTO - GERAL - 30 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 30) {
-            data.summary["late"] += 1;
-            classification = "late";
+            data.summary["Atrasados"] += 1;
+            classification = "Atrasados";
           } else if (duration <= 30) {
             data.summary["até 30 dias"] += 1;
             classification = "até 30 dias";
           }
-          data.summary["total"] += 1;
+          data.summary["Total"] += 1;
         }
         data.values[index].classification = classification;
       });
