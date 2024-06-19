@@ -1,4 +1,3 @@
-import { existsSync, mkdirSync } from "fs";
 import app from "./app";
 import { connectionPool } from "./repository/database-connection";
 

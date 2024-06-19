@@ -204,7 +204,7 @@ export class ListCompletedServicesUseCase {
       throw new HttpError("Invalid dates", 400);
     }
 
-    const resultMalFormatted = await this.repository.find({
+    const resultMalFormatted = await this.repository.findCompletedServices({
       location: filter.location,
       range: {
         from: ListCompletedServicesUseCase.formatDate(filterDate.from),
@@ -219,8 +219,12 @@ export class ListCompletedServicesUseCase {
 
     Object.keys(mappedMetrics).forEach((type) => {
       const summary = mappedMetrics[type].values.reduce(
-        (a, v) => ({ ...a, [`até ${v} ${mappedMetrics[type].type}`]: 0 }),
-        { Atrasados: 0, Total: 0 }
+        (a, v) => ({
+          ...a,
+          [`até ${v} ${mappedMetrics[type].type}`]: 0,
+          [`até ${v} ${mappedMetrics[type].type} - %`]: 0,
+        }),
+        { Atrasados: 0, [`Atrasados - %`]: 0, Total: 0 }
       );
 
       let collection = {
@@ -444,6 +448,17 @@ export class ListCompletedServicesUseCase {
           data.summary["Total"] += 1;
         }
         data.values[index].classification = classification;
+      });
+      const keys = Object.keys(data.summary).filter(
+        (key) => key !== "Total" && !key.includes("%")
+      );
+
+      const totalItems = data.summary["Total"];
+
+      keys.forEach((key) => {
+        const quantity = data.summary[key];
+        const percentage = ((quantity * 100) / totalItems).toFixed();
+        data.summary[`${key} - %`] = `${percentage}%`;
       });
     });
 

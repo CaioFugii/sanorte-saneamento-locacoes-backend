@@ -27,7 +27,7 @@ export class ServicesRepository {
   constructor(public databaseConnection: Client) {
     this.databaseConnection = databaseConnection;
   }
-  async find(filter: {
+  async findCompletedServices(filter: {
     location: string[];
     range: { from: string; to: string };
   }) {
@@ -36,6 +36,23 @@ export class ServicesRepository {
         .map((location) => `'${location}'`)
         .join(", ");
       const query = `SELECT * FROM completed_services WHERE origin IN (${location}) AND finish_date >= '${filter.range.from}' AND finish_date <= '${filter.range.to}' ORDER BY finish_date DESC`;
+      console.log(query);
+      const result = await this.databaseConnection.query(query);
+      return result.rows ?? [];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findPendingServices(filter: {
+    location: string[];
+    range: { from: string; to: string };
+  }) {
+    try {
+      const location = filter.location
+        .map((location) => `'${location}'`)
+        .join(", ");
+      const query = `SELECT * FROM pending_services WHERE origin IN (${location}) AND start_date >= '${filter.range.from}' AND start_date <= '${filter.range.to}' ORDER BY start_date DESC`;
       console.log(query);
       const result = await this.databaseConnection.query(query);
       return result.rows ?? [];
@@ -65,11 +82,11 @@ export class ServicesRepository {
         ];
         await this.databaseConnection.query(insertQuery, values);
 
-        const selectQuery = `SELECT order_service FROM pending_services WHERE order_service = ${item.order_service}`;
+        const selectQuery = `SELECT order_service FROM pending_services WHERE order_service = '${item.order_service}'`;
         const found = await this.databaseConnection.query(selectQuery);
 
         if (found.rows.length > 0) {
-          const deleteQuery = `DELETE FROM pending_services WHERE order_service = ${item.order_service}`;
+          const deleteQuery = `DELETE FROM pending_services WHERE order_service = '${item.order_service}'`;
           await this.databaseConnection.query(deleteQuery);
         } else {
           continue;
@@ -83,7 +100,7 @@ export class ServicesRepository {
   async insertPendingServices(payload: InsertPendingPayload[]) {
     try {
       for (const item of payload) {
-        const selectQuery = `SELECT order_service FROM completed_services WHERE order_service = ${item.order_service}`;
+        const selectQuery = `SELECT order_service FROM completed_services WHERE order_service = '${item.order_service}'`;
         const found = await this.databaseConnection.query(selectQuery);
 
         if (found.rows.length > 0) {

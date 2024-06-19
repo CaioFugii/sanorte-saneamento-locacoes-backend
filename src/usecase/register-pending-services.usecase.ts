@@ -66,13 +66,11 @@ export class RegisterPendingServicesUseCase {
   static checkHeaders(data: any): boolean {
     return (
       data.hasOwnProperty("Número OS") &&
-      data.hasOwnProperty("Descrição TSS") &&
-      data.hasOwnProperty("Data Início Execução") &&
-      data.hasOwnProperty("Data Fim Execução") &&
+      data.hasOwnProperty("TSS") &&
+      data.hasOwnProperty("Data de Competência") &&
       data.hasOwnProperty("Endereço") &&
       data.hasOwnProperty("Município") &&
-      data.hasOwnProperty("Status da OS") &&
-      data.hasOwnProperty("Resultado")
+      data.hasOwnProperty("Status da OS")
     );
   }
 }
