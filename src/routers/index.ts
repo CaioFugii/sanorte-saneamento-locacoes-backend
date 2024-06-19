@@ -72,17 +72,19 @@ router.get(
 
       const rangeFrom = (req.query?.from as string) || "";
       const rangeTo = (req.query?.to as string) || "";
-      const queryLocation =
-        (req.query?.location as string) || "Santos - Cubatão";
+      const queryLocation = (req.query?.location as string) || "SC";
 
-      // available locations:
-      //  "Santos - Cubatão"
-      // "São Sebastião - Ilha bela"
-      // "São Vicente"
+      const availableLocations = {
+        SC: "Santos - Cubatão",
+        SI: "São Sebastião - Ilha bela",
+        SV: "São Vicente",
+      };
+
+      const selectedLocation = availableLocations[queryLocation];
 
       let filterLocation = null;
       if (role === "admin" && location === "*") {
-        filterLocation = [queryLocation];
+        filterLocation = [selectedLocation];
       } else {
         filterLocation = [location];
       }
@@ -112,14 +114,17 @@ router.get(
       const queryLocation =
         (req.query?.location as string) || "Santos - Cubatão";
 
-      // available locations:
-      //  "Santos - Cubatão"
-      // "São Sebastião - Ilha bela"
-      // "São Vicente"
+      const availableLocations = {
+        SC: "Santos - Cubatão",
+        SI: "São Sebastião - Ilha bela",
+        SV: "São Vicente",
+      };
+
+      const selectedLocation = availableLocations[queryLocation];
 
       let filterLocation = null;
       if (role === "admin" && location === "*") {
-        filterLocation = [queryLocation];
+        filterLocation = [selectedLocation];
       } else {
         filterLocation = [location];
       }
