@@ -10,15 +10,9 @@ const app = express();
 
 config();
 
+app.use(cors());
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "*"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Forwarded-For"],
-    methods: ["GET", "POST"],
-  })
-);
 app.use(express.json());
 
 app.get(
@@ -33,7 +27,7 @@ app.get(
   }
 );
 
-app.use("/api/", router);
+app.use("/api/", cors(), router);
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
