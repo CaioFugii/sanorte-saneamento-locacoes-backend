@@ -12,10 +12,12 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: function (_, __, cb) {
+    console.log("STORAGE");
     const folderPath = "/tmp";
     cb(null, folderPath);
   },
   filename: function (_, file, cb) {
+    console.log("STORAGE - FILENAME");
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     const fileExtension = path.extname(file.originalname);
     cb(null, `${file.fieldname}-${uniqueSuffix}${fileExtension}`);
@@ -34,6 +36,7 @@ const fileFilter = (
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
+    console.log("fileFilter ERRO");
     cb(
       new Error(
         "Tipo de arquivo não suportado. Por favor, envie um arquivo Excel."
@@ -148,12 +151,15 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { path } = req.file;
+
+      console.log("PATH - ROUTE", path);
       const { location } = JSON.parse(req.headers.authorization);
       const repository = new ServicesRepository(connectionPool);
       const usecase = new RegisterCompletedServicesUseCase(repository);
       await usecase.execute(path, location);
       return res.status(200).send();
     } catch (error) {
+      console.log("PATH - ROUTE - CATCH", path);
       next(error);
     }
   }
