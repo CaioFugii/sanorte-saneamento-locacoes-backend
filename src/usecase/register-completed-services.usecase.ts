@@ -7,7 +7,6 @@ export class RegisterCompletedServicesUseCase {
   constructor(private repository: ServicesRepository) {}
   async execute(pathFile: string, origin: string): Promise<void> {
     try {
-      console.log("USECASE", pathFile);
       if (origin === "*") {
         throw new HttpError("Invalid Origin of file", 400);
       }
@@ -53,8 +52,7 @@ export class RegisterCompletedServicesUseCase {
 
       await this.repository.deleteItems(oneMonthAgo);
     } catch (error) {
-      console.log("USECASE - CATCH", pathFile);
-
+      console.error(error);
       throw error;
     } finally {
       if (existsSync(pathFile)) {

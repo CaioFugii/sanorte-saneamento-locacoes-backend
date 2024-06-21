@@ -99,6 +99,7 @@ router.get(
 
       return res.status(200).json(response ?? []);
     } catch (error) {
+      console.error(error);
       next(error);
     }
   }
@@ -139,6 +140,7 @@ router.get(
 
       return res.status(200).json(response ?? []);
     } catch (error) {
+      console.error(error);
       next(error);
     }
   }
@@ -159,7 +161,7 @@ router.post(
       await usecase.execute(path, location);
       return res.status(200).send();
     } catch (error) {
-      console.log("PATH - ROUTE - CATCH", error);
+      console.error(error);
       next(error);
     }
   }
@@ -178,6 +180,7 @@ router.post(
       await usecase.execute(path, location);
       return res.status(200).send();
     } catch (error) {
+      console.error(error);
       next(error);
     }
   }

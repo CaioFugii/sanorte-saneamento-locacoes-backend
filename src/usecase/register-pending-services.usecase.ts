@@ -46,6 +46,7 @@ export class RegisterPendingServicesUseCase {
 
       await this.repository.deleteItems(oneMonthAgo);
     } catch (error) {
+      console.error(error);
       throw error;
     } finally {
       if (existsSync(pathFile)) {
