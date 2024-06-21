@@ -159,7 +159,7 @@ router.post(
       await usecase.execute(path, location);
       return res.status(200).send();
     } catch (error) {
-      console.log("PATH - ROUTE - CATCH", path);
+      console.log("PATH - ROUTE - CATCH", error);
       next(error);
     }
   }
