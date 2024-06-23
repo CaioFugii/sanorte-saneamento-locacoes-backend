@@ -74,7 +74,11 @@ router.get(
 
       const rangeFrom = (req.query?.from as string) || "";
       const rangeTo = (req.query?.to as string) || "";
-      const queryLocation = (req.query?.location as string) || "SC";
+      const queryLocation = req.query?.location as string;
+
+      if (!queryLocation) {
+        throw new Error("Location is required");
+      }
 
       const availableLocations = {
         SC: "Santos - Cubatão",
@@ -114,8 +118,11 @@ router.get(
 
       const rangeFrom = (req.query?.from as string) || "";
       const rangeTo = (req.query?.to as string) || "";
-      const queryLocation =
-        (req.query?.location as string) || "Santos - Cubatão";
+      const queryLocation = req.query?.location as string;
+
+      if (!queryLocation) {
+        throw new Error("Location is required");
+      }
 
       const availableLocations = {
         SC: "Santos - Cubatão",
