@@ -28,7 +28,7 @@ export class RegisterPendingServicesUseCase {
           order_service: data["Número OS"].trim(),
           tss: data["TSS"].trim(),
           start_date: RegisterPendingServicesUseCase.getDate(
-            data["Data de Competência"].trim()
+            data["Data Inserção"].trim()
           ),
           address: `${data["Endereço"]}, número: ${data["Número"] ?? "S/N"} - ${
             data["Complemento"]

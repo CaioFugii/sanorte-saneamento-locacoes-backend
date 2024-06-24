@@ -84,6 +84,7 @@ router.get(
         SC: "Santos - Cubatão",
         SI: "São Sebastião - Ilha bela",
         SV: "São Vicente",
+        GB: "Guarujá e Bertioga",
       };
 
       const selectedLocation = availableLocations[queryLocation];
@@ -128,6 +129,7 @@ router.get(
         SC: "Santos - Cubatão",
         SI: "São Sebastião - Ilha bela",
         SV: "São Vicente",
+        GB: "Guarujá e Bertioga",
       };
 
       const selectedLocation = availableLocations[queryLocation];
