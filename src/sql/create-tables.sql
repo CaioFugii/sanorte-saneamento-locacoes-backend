@@ -1,6 +1,6 @@
 CREATE TABLE completed_services (
   origin varchar(255),
-  order_service varchar(255) unique,
+  order_service varchar(255),
   tss varchar(255),
   start_date TIMESTAMP,
   finish_date TIMESTAMP,
@@ -13,7 +13,7 @@ CREATE TABLE completed_services (
 
 CREATE TABLE pending_services (
   origin varchar(255),
-  order_service varchar(255) unique,
+  order_service varchar(255),
   tss varchar(255),
   start_date TIMESTAMP,
   address varchar(255),
@@ -21,3 +21,9 @@ CREATE TABLE pending_services (
   status varchar(255),
   created_at TIMESTAMP
 );
+
+CREATE UNIQUE INDEX idx_unique_tss_os_completed
+ON completed_services (order_service, tss);
+
+CREATE UNIQUE INDEX idx_unique_tss_os_pending
+ON pending_services (order_service, tss);

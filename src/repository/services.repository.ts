@@ -82,11 +82,11 @@ export class ServicesRepository {
         ];
         await this.databaseConnection.query(insertQuery, values);
 
-        const selectQuery = `SELECT order_service FROM pending_services WHERE order_service = '${item.order_service}'`;
+        const selectQuery = `SELECT order_service FROM pending_services WHERE order_service = '${item.order_service}' AND tss = '${item.tss}'`;
         const found = await this.databaseConnection.query(selectQuery);
 
         if (found.rows.length > 0) {
-          const deleteQuery = `DELETE FROM pending_services WHERE order_service = '${item.order_service}'`;
+          const deleteQuery = `DELETE FROM pending_services WHERE order_service = '${item.order_service}' AND tss = '${item.tss}'`;
           await this.databaseConnection.query(deleteQuery);
         } else {
           continue;
@@ -100,7 +100,7 @@ export class ServicesRepository {
   async insertPendingServices(payload: InsertPendingPayload[]) {
     try {
       for (const item of payload) {
-        const selectQuery = `SELECT order_service FROM completed_services WHERE order_service = '${item.order_service}'`;
+        const selectQuery = `SELECT order_service FROM completed_services WHERE order_service = '${item.order_service}' AND tss = '${item.tss}'`;
         const found = await this.databaseConnection.query(selectQuery);
 
         if (found.rows.length > 0) {
@@ -130,12 +130,12 @@ export class ServicesRepository {
 
   async deleteItems(date: string) {
     try {
-      const completedQuery = `delete from completed_services where finish_date <= '${date}'`;
-      console.log(completedQuery);
+      const completedQuery = `delete from completed_services where created_at <= '${date}'`;
+      console.log("DELETE COMPLETED: ", completedQuery);
       await this.databaseConnection.query(completedQuery);
 
-      const pendingQuery = `delete from pending_services where start_date <= '${date}'`;
-      console.log(pendingQuery);
+      const pendingQuery = `delete from pending_services where created_at <= '${date}'`;
+      console.log("DELETE PENDING: ", pendingQuery);
       await this.databaseConnection.query(pendingQuery);
     } catch (error) {
       throw error;
