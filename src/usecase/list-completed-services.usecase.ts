@@ -17,16 +17,21 @@ const mappedServices = {
   "VAZAMENTO DE ÁGUA LEITO PAVIMENTADO": "ARSESP - AGUA",
   "CAVALETE VAZANDO": "ARSESP - AGUA",
   "CAVALETE QUEBRADO": "ARSESP - AGUA",
-  "REGISTRO DO CAVALETE QUEBRADO": "AGUA - GERAL - 24 HORAS",
+  "REGISTRO DO CAVALETE QUEBRADO":
+    "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS",
   "REGISTRO DO CAVALETE VAZANDO": "ARSESP - AGUA",
   "TROCAR RAMAL DE ÁGUA": "ARSESP - AGUA",
   "HIDROMETRO VAZANDO": "ARSESP - AGUA",
   "HIDRÔMETRO VAZANDO": "ARSESP - AGUA",
   "HIDRANTE VAZANDO": "ARSESP - AGUA",
-  "FALTA DE ÁGUA GERAL": "AGUA - GERAL - 24 HORAS",
-  "FALTA DE ÁGUA LOCAL": "AGUA - GERAL - 24 HORAS",
-  "POUCA PRESSÃO DE ÁGUA LOCAL": "AGUA - GERAL - 24 HORAS",
-  "POUCA PRESSÃO DE ÁGUA GERAL": "AGUA - GERAL - 24 HORAS",
+  "FALTA DE ÁGUA GERAL":
+    "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS",
+  "FALTA DE ÁGUA LOCAL":
+    "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS",
+  "POUCA PRESSÃO DE ÁGUA LOCAL":
+    "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS",
+  "POUCA PRESSÃO DE ÁGUA GERAL":
+    "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS",
   "CONSERTO DE REDE DE ESGOTO": "ARSESP - ESGOTO",
   "CONSERTO DE RAMAL DE ESGOTO": "ARSESP - ESGOTO",
   "CONSERTAR RAMAL DE ESGOTO": "ARSESP - ESGOTO",
@@ -72,64 +77,89 @@ const mappedServices = {
   "LIGAÇÃO DE ESGOTO AVULSA S/V": "LIGAÇÃO DE ESGOTO",
   "LIGAÇÃO DE ESGOTO S/V": "LIGAÇÃO DE ESGOTO",
   "SUBSTITUIR LIGAÇÃO DE ESGOTO": "LIGAÇÃO DE ESGOTO",
-  "CONSTRUIR POÇO DE VISITA": "ESGOTO - GERAL - 9 DIAS",
-  "CONSTRUIR POÇO DE INSPEÇÃO": "ESGOTO - GERAL - 9 DIAS",
-  "DESCOBRIR POÇO INSPEÇÃO/VISITA": "ESGOTO - GERAL - 9 DIAS",
-  "DESCOBRIR TERMINAL DE LIMPEZA": "ESGOTO - GERAL - 9 DIAS",
-  "NIVELAR POÇO DE INSPEÇÃO/VISITA": "ESGOTO - GERAL - 9 DIAS",
-  "NIVELAR TERMINAL DE LIMPEZA": "ESGOTO - GERAL - 9 DIAS",
-  "TESTE DE CORANTE OP": "ESGOTO - GERAL - 9 DIAS",
-  "LIGAÇÃO DE ESGOTO ADICIONAL": "ESGOTO - GERAL - 9 DIAS",
-  "PROLONGAR REDE DE ESGOTO": "ESGOTO - GERAL - 30 DIAS",
-  "REMANEJAR REDE DE ESGOTO": "ESGOTO - GERAL - 30 DIAS",
-  "RETIRAR ENTULHO": "ESGOTO - GERAL - 3 DIAS",
-  "SONDAR RAMAL DE ESGOTO": "ESGOTO - GERAL - 3 DIAS",
-  "SONDAR REDE DE ESGOTO": "ESGOTO - GERAL - 3 DIAS",
-  "TROCAR RAMAL DE ESGOTO": "ESGOTO - GERAL - 3 DIAS",
-  "TROCAR SOLO": "ESGOTO - GERAL - 3 DIAS",
-  "TROCAR SOLO INV": "ESGOTO - GERAL - 3 DIAS",
-  "HIDRÔMETRO PARADO": "AGUA - GERAL - 48 HORAS",
-  "HIDRÔMETRO EMBAÇADO": "AGUA - GERAL - 48 HORAS",
-  "HIDRÔMETRO INVERTIDO": "AGUA - GERAL - 48 HORAS",
-  "HIDRÔMETRO QUEBRADO": "AGUA - GERAL - 48 HORAS",
-  "INSTALAR HIDRÔMETRO DESAPARECIDO/FURTADO": "AGUA - GERAL - 24 HORAS",
-  "TROCAR CAVALETE (KIT)": "AGUA - GERAL - 3 DIAS",
-  "REATIVAR LIGAÇÃO DE ÁGUA S/V": "AGUA - GERAL - 48 HORAS",
-  "RELIGAR ÁGUA A PEDIDO DO CLIENTE": "AGUA - GERAL - 48 HORAS",
-  "RESTABELECER LIGAÇÃO MUDAN TITULARID OP": "AGUA - GERAL - 48 HORAS",
-  "RESTABELECER LIGAÇÃO OP": "AGUA - GERAL - 48 HORAS",
-  "RELIGAR ÁGUA DEB OP": "AGUA - GERAL - 48 HORAS",
-  "RELIGAR AGUA IMPEDIMENTO DE LEITURA": "AGUA - GERAL - 48 HORAS",
-  "RELIGAR AGUA MUDANÇA TITULARIDADE": "AGUA - GERAL - 48 HORAS",
-  "SONDAR RAMAL DE ÁGUA": "AGUA - GERAL - 3 DIAS",
-  "SONDAR REDE DE ÁGUA": "AGUA - GERAL - 3 DIAS",
-  "SUPRIMIR LIG AGUA DEMOLIÇÃO/UNIFICAÇÃO": "AGUA - GERAL - 10 DIAS",
-  "SUPRIMIR RAMAL EM SUBST DE LIGAÇÃO ÁGUA": "AGUA - GERAL - 10 DIAS",
-  "SUPRIMIR LIGAÇÃO DE ÁGUA POR DEBITO OP": "AGUA - GERAL - 10 DIAS",
-  "SUPRIMIR LIG AGUA ENCERRAMENTO CONTRATO": "AGUA - GERAL - 10 DIAS",
-  "SUPRIMIR LIGAÇÃO DE ÁGUA IRREG": "AGUA - GERAL - 10 DIAS",
-  "SUPRIMIR LIGAÇÃO DE AGUA POR IMOVEL VAGO": "AGUA - GERAL - 10 DIAS",
-  "TROCAR RAMAL DE ÁGUA PREVENTIVA": "AGUA - GERAL - 3 DIAS",
-  "TROCAR RAMAL DE ÁGUA - VAZ NÃO VISIVEL": "AGUA - GERAL - 3 DIAS",
-  "VAZAMENTO DE ÁGUA NÃO VISÍVEL CAVALETE": "AGUA - GERAL - 3 DIAS",
-  "VAZAMENTO DE ÁGUA NÃO VISÍVEL RAMAL": "AGUA - GERAL - 3 DIAS",
-  "VAZAMENTO DE ÁGUA NÃO VISÍVEL REDE": "AGUA - GERAL - 3 DIAS",
-  "TROCAR HIDRÔMETRO PREVENTIVA": "AGUA - GERAL - 30 DIAS",
-  "TROCAR CAVALETE POR UMA": "AGUA - GERAL - 10 DIAS",
-  "INSTALAR LACRE DIVERSOS": "AGUA - GERAL - 10 DIAS",
-  "INSTALAR LACRE NUMERADO": "AGUA - GERAL - 10 DIAS",
-  "REGULARIZAR CAVALETE": "AGUA - GERAL - 10 DIAS",
-  "VERIFICAR SERVIÇO SOLICITADO": "AGUA - GERAL - 10 DIAS",
-  "RESTABELECER LIGAÇÃO SERVIÇOS ADICIONAIS": "AGUA - GERAL - 10 DIAS",
-  "MUITA PRESSÃO DE ÁGUA": "AGUA - GERAL - 10 DIAS",
-  "VISTORIA DE ENCERRAMENTO CONTRATUAL": "AGUA - GERAL - 10 DIAS",
-  "INTERLIGAR REDE DE ÁGUA": "AGUA - GERAL - 10 DIAS",
-  "INSTALAR VÁLVULA DE REDE DE ÁGUA": "AGUA - GERAL - 10 DIAS",
-  "DESCARGA EM REDE DE ÁGUA": "AGUA - GERAL - 10 DIAS",
-  "READEQUAR CAVALETE": "AGUA - GERAL - 10 DIAS",
-  "SUBSTITUIR TAMPA DE CAIXA UMA": "AGUA - GERAL - 10 DIAS",
-  "PROLONGAR REDE DE ÁGUA": "AGUA - GERAL - 30 DIAS",
-  "REMANEJAR REDE DE ÁGUA": "AGUA - GERAL - 30 DIAS",
+  "CONSTRUIR POÇO DE VISITA": "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "CONSTRUIR POÇO DE INSPEÇÃO":
+    "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "DESCOBRIR POÇO INSPEÇÃO/VISITA":
+    "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "DESCOBRIR TERMINAL DE LIMPEZA":
+    "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "NIVELAR POÇO DE INSPEÇÃO/VISITA":
+    "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "NIVELAR TERMINAL DE LIMPEZA":
+    "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "TESTE DE CORANTE OP": "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "LIGAÇÃO DE ESGOTO ADICIONAL":
+    "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS",
+  "PROLONGAR REDE DE ESGOTO": "PROLONGAMENTOS - 30 DIAS",
+  "REMANEJAR REDE DE ESGOTO": "PROLONGAMENTOS - 30 DIAS",
+  "RETIRAR ENTULHO": "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS",
+  "SONDAR RAMAL DE ESGOTO": "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS",
+  "SONDAR REDE DE ESGOTO": "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS",
+  "TROCAR RAMAL DE ESGOTO": "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS",
+  "TROCAR SOLO": "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS",
+  "TROCAR SOLO INV": "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS",
+  "HIDRÔMETRO PARADO": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "HIDRÔMETRO EMBAÇADO": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "HIDRÔMETRO INVERTIDO": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "HIDRÔMETRO QUEBRADO": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "INSTALAR HIDRÔMETRO DESAPARECIDO/FURTADO":
+    "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS",
+  "TROCAR CAVALETE (KIT)": "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "REATIVAR LIGAÇÃO DE ÁGUA S/V": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "RELIGAR ÁGUA A PEDIDO DO CLIENTE": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "RESTABELECER LIGAÇÃO MUDAN TITULARID OP":
+    "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "RESTABELECER LIGAÇÃO OP": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "RELIGAR ÁGUA DEB OP": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "RELIGAR AGUA IMPEDIMENTO DE LEITURA":
+    "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "RELIGAR AGUA MUDANÇA TITULARIDADE": "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS",
+  "SONDAR RAMAL DE ÁGUA": "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "SONDAR REDE DE ÁGUA": "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "SUPRIMIR LIG AGUA DEMOLIÇÃO/UNIFICAÇÃO":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "SUPRIMIR RAMAL EM SUBST DE LIGAÇÃO ÁGUA":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "SUPRIMIR LIGAÇÃO DE ÁGUA POR DEBITO OP":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "SUPRIMIR LIG AGUA ENCERRAMENTO CONTRATO":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "SUPRIMIR LIGAÇÃO DE ÁGUA IRREG":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "SUPRIMIR LIGAÇÃO DE AGUA POR IMOVEL VAGO":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "TROCAR RAMAL DE ÁGUA PREVENTIVA":
+    "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "TROCAR RAMAL DE ÁGUA - VAZ NÃO VISIVEL":
+    "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "VAZAMENTO DE ÁGUA NÃO VISÍVEL CAVALETE":
+    "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "VAZAMENTO DE ÁGUA NÃO VISÍVEL RAMAL":
+    "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "VAZAMENTO DE ÁGUA NÃO VISÍVEL REDE":
+    "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS",
+  "TROCAR HIDRÔMETRO PREVENTIVA": "PROLONGAMENTO/ HIDRO PREVENTIVO - 30 DIAS",
+  "TROCAR CAVALETE POR UMA": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "INSTALAR LACRE DIVERSOS": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "INSTALAR LACRE NUMERADO": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "REGULARIZAR CAVALETE": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "VERIFICAR SERVIÇO SOLICITADO":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "RESTABELECER LIGAÇÃO SERVIÇOS ADICIONAIS":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "MUITA PRESSÃO DE ÁGUA": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "VISTORIA DE ENCERRAMENTO CONTRATUAL":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "INTERLIGAR REDE DE ÁGUA": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "INSTALAR VÁLVULA DE REDE DE ÁGUA":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "DESCARGA EM REDE DE ÁGUA": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "READEQUAR CAVALETE": "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "SUBSTITUIR TAMPA DE CAIXA UMA":
+    "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS",
+  "PROLONGAR REDE DE ÁGUA": "PROLONGAMENTO/ HIDRO PREVENTIVO - 30 DIAS",
+  "REMANEJAR REDE DE ÁGUA": "PROLONGAMENTO/ HIDRO PREVENTIVO - 30 DIAS",
 };
 
 const mappedMetrics = {
@@ -153,15 +183,15 @@ const mappedMetrics = {
     type: "dias",
     values: [10],
   },
-  "AGUA - GERAL - 24 HORAS": {
+  "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS": {
     type: "horas",
     values: [24],
   },
-  "AGUA - GERAL - 48 HORAS": {
+  "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS": {
     type: "horas",
     values: [48],
   },
-  "AGUA - GERAL - 3 DIAS": {
+  "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS": {
     type: "dias",
     values: [3],
   },
@@ -173,23 +203,23 @@ const mappedMetrics = {
     type: "dias",
     values: [9],
   },
-  "AGUA - GERAL - 10 DIAS": {
+  "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS": {
     type: "dias",
     values: [10],
   },
-  "AGUA - GERAL - 30 DIAS": {
+  "PROLONGAMENTO/ HIDRO PREVENTIVO - 30 DIAS": {
     type: "dias",
     values: [30],
   },
-  "ESGOTO - GERAL - 3 DIAS": {
+  "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS": {
     type: "dias",
     values: [3],
   },
-  "ESGOTO - GERAL - 9 DIAS": {
+  "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS": {
     type: "dias",
     values: [9],
   },
-  "ESGOTO - GERAL - 30 DIAS": {
+  "PROLONGAMENTOS - 30 DIAS": {
     type: "dias",
     values: [30],
   },
@@ -367,7 +397,10 @@ export class ListCompletedServicesUseCase {
             classification = "até 10 dias";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "AGUA - GERAL - 24 HORAS") {
+        } else if (
+          data.tableName ===
+          "FALTA D'AGUA / HIDRO FURTADO/ CAVALETE CORRETIVO - 24 HORAS"
+        ) {
           const duration = differenceInHours(finishDate, startDate);
           if (duration > 24) {
             data.summary["Atrasados"] += 1;
@@ -377,7 +410,9 @@ export class ListCompletedServicesUseCase {
             classification = "até 24 horas";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "AGUA - GERAL - 48 HORAS") {
+        } else if (
+          data.tableName === "HIDRO CORRETIVO/ RELIGAÇÕES - 48 HORAS"
+        ) {
           const duration = differenceInHours(finishDate, startDate);
           if (duration > 48) {
             data.summary["Atrasados"] += 1;
@@ -387,7 +422,9 @@ export class ListCompletedServicesUseCase {
             classification = "até 48 horas";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "AGUA - GERAL - 3 DIAS") {
+        } else if (
+          data.tableName === "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS"
+        ) {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 3) {
             data.summary["Atrasados"] += 1;
@@ -417,7 +454,9 @@ export class ListCompletedServicesUseCase {
             classification = "até 9 dias";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "AGUA - GERAL - 10 DIAS") {
+        } else if (
+          data.tableName === "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS"
+        ) {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 10) {
             data.summary["Atrasados"] += 1;
@@ -427,7 +466,9 @@ export class ListCompletedServicesUseCase {
             classification = "até 10 dias";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "AGUA - GERAL - 30 DIAS") {
+        } else if (
+          data.tableName === "PROLONGAMENTO/ HIDRO PREVENTIVO - 30 DIAS"
+        ) {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 30) {
             data.summary["Atrasados"] += 1;
@@ -437,7 +478,9 @@ export class ListCompletedServicesUseCase {
             classification = "até 30 dias";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "ESGOTO - GERAL - 3 DIAS") {
+        } else if (
+          data.tableName === "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS"
+        ) {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 3) {
             data.summary["Atrasados"] += 1;
@@ -447,7 +490,9 @@ export class ListCompletedServicesUseCase {
             classification = "até 3 dias";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "ESGOTO - GERAL - 9 DIAS") {
+        } else if (
+          data.tableName === "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS"
+        ) {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 9) {
             data.summary["Atrasados"] += 1;
@@ -457,7 +502,7 @@ export class ListCompletedServicesUseCase {
             classification = "até 9 dias";
           }
           data.summary["Total"] += 1;
-        } else if (data.tableName === "ESGOTO - GERAL - 30 DIAS") {
+        } else if (data.tableName === "PROLONGAMENTOS - 30 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
           if (duration > 30) {
             data.summary["Atrasados"] += 1;
