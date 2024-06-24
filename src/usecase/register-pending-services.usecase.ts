@@ -16,6 +16,10 @@ export class RegisterPendingServicesUseCase {
       const worksheet = workbook.Sheets[sheetName];
       const jsonData = utils.sheet_to_json(worksheet);
 
+      if (!jsonData[0]) {
+        throw new HttpError("Invalid File", 400);
+      }
+
       const isValid = RegisterPendingServicesUseCase.checkHeaders(jsonData[0]);
 
       if (!isValid) {
