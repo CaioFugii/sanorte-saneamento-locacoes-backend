@@ -23,6 +23,7 @@ type InsertPendingPayload = {
   status: string;
   created_at: Date;
 };
+const lastInserts: { location: string; date?: string; type: string }[] = [];
 export class ServicesRepository {
   constructor(public databaseConnection: Client) {
     this.databaseConnection = databaseConnection;
@@ -92,6 +93,31 @@ export class ServicesRepository {
           continue;
         }
       }
+      const firstItem = payload[0];
+
+      if (
+        !lastInserts.some(
+          (element) =>
+            element?.location === firstItem.origin &&
+            element?.type === "completed"
+        )
+      ) {
+        lastInserts.push({
+          location: firstItem.origin,
+          date: new Date().toISOString(),
+          type: "completed",
+        });
+      } else {
+        const index = lastInserts.findIndex(
+          (value) =>
+            value.location === firstItem.origin && value.type === "completed"
+        );
+        lastInserts.splice(index, 1, {
+          location: firstItem.origin,
+          date: new Date().toISOString(),
+          type: "completed",
+        });
+      }
     } catch (error) {
       throw error;
     }
@@ -123,6 +149,31 @@ export class ServicesRepository {
           await this.databaseConnection.query(insertQuery, values);
         }
       }
+      const firstItem = payload[0];
+      if (
+        !lastInserts.some(
+          (element) =>
+            element?.location === firstItem.origin &&
+            element?.type === "pending"
+        )
+      ) {
+        lastInserts.push({
+          location: firstItem.origin,
+          date: new Date().toISOString(),
+          type: "pending",
+        });
+      } else {
+        const index = lastInserts.findIndex(
+          (value) =>
+            value.location === firstItem.origin && value.type === "pending"
+        );
+        console.log(index);
+        lastInserts.splice(index, 1, {
+          location: firstItem.origin,
+          date: new Date().toISOString(),
+          type: "pending",
+        });
+      }
     } catch (error) {
       throw error;
     }
@@ -140,5 +191,39 @@ export class ServicesRepository {
     } catch (error) {
       throw error;
     }
+  }
+
+  async getLastInserts(location: string) {
+    const lastCompletedInsert = lastInserts.find(
+      (e) => e.location === location && e.type === "completed"
+    );
+    const lastPendingInsert = lastInserts.find(
+      (e) => e.location === location && e.type === "pending"
+    );
+
+    if (lastCompletedInsert && lastPendingInsert) {
+      return [lastCompletedInsert, lastPendingInsert];
+    }
+
+    const getQuery = (type: string) =>
+      `SELECT * FROM ${type}_services WHERE origin = '${location}' ORDER BY created_at DESC LIMIT 1`;
+
+    const fetchInsert = async (type: string) => {
+      const result = await this.databaseConnection.query(getQuery(type));
+      return result.rows.length
+        ? { location, date: result.rows[0].created_at, type }
+        : { location, date: null, type };
+    };
+
+    const [completedResult, pendingResult] = await Promise.all([
+      lastCompletedInsert
+        ? Promise.resolve(lastCompletedInsert)
+        : fetchInsert("completed"),
+      lastPendingInsert
+        ? Promise.resolve(lastPendingInsert)
+        : fetchInsert("pending"),
+    ]);
+
+    return [completedResult, pendingResult];
   }
 }

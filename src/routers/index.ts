@@ -5,6 +5,7 @@ import { ListCompletedServicesUseCase } from "../usecase/list-completed-services
 import { ListPendingServicesUseCase } from "../usecase/list-pending-services.usecase";
 import { RegisterPendingServicesUseCase } from "../usecase/register-pending-services.usecase";
 import { RegisterCompletedServicesUseCase } from "../usecase/register-completed-services.usecase";
+import { ListLastInsertsUseCase } from "../usecase/list-last-inserts.usecase";
 import { ServicesRepository } from "../repository/services.repository";
 import { connectionPool } from "../repository/database-connection";
 import multer from "multer";
@@ -186,6 +187,42 @@ router.post(
       const usecase = new RegisterPendingServicesUseCase(repository);
       await usecase.execute(path, location);
       return res.status(200).send();
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  }
+);
+
+router.get(
+  "/last-inserts",
+  middlewares.authToken,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const queryLocation = req.query?.location as string;
+
+      if (!queryLocation) {
+        throw new Error("Location is required");
+      }
+
+      const availableLocations = {
+        SC: "Santos - Cubatão",
+        SI: "São Sebastião - Ilha bela",
+        SV: "São Vicente",
+        GB: "Guarujá e Bertioga",
+      };
+
+      const selectedLocation = availableLocations[queryLocation];
+
+      if (!selectedLocation) {
+        throw new Error("Valid Location is required");
+      }
+
+      const repository = new ServicesRepository(connectionPool);
+      const usecase = new ListLastInsertsUseCase(repository);
+      const response = await usecase.execute(selectedLocation);
+
+      return res.status(200).json(response);
     } catch (error) {
       console.error(error);
       next(error);
