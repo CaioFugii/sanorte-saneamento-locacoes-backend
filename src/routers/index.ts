@@ -116,8 +116,6 @@ router.get(
     try {
       const { location, role } = JSON.parse(req.headers.authorization);
 
-      const rangeFrom = (req.query?.from as string) || "";
-      const rangeTo = (req.query?.to as string) || "";
       const queryLocation = req.query?.location as string;
 
       if (!queryLocation) {
@@ -133,6 +131,10 @@ router.get(
 
       const selectedLocation = availableLocations[queryLocation];
 
+      if (!selectedLocation) {
+        throw new Error("Valid location is required");
+      }
+
       let filterLocation = null;
       if (role === "admin" && location === "*") {
         filterLocation = [selectedLocation];
@@ -143,7 +145,6 @@ router.get(
       const usecase = new ListPendingServicesUseCase(repository);
       const response = await usecase.execute({
         location: filterLocation,
-        range: { from: rangeFrom, to: rangeTo },
       });
 
       return res.status(200).json(response ?? []);

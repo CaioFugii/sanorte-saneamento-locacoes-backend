@@ -45,15 +45,12 @@ export class ServicesRepository {
     }
   }
 
-  async findPendingServices(filter: {
-    location: string[];
-    range: { from: string; to: string };
-  }) {
+  async findPendingServices(filter: { location: string[] }) {
     try {
       const location = filter.location
         .map((location) => `'${location}'`)
         .join(", ");
-      const query = `SELECT * FROM pending_services WHERE origin IN (${location}) AND start_date >= '${filter.range.from}' AND start_date <= '${filter.range.to}' ORDER BY start_date DESC`;
+      const query = `SELECT * FROM pending_services WHERE origin IN (${location}) ORDER BY start_date DESC`;
       console.log(query);
       const result = await this.databaseConnection.query(query);
       return result.rows ?? [];
@@ -82,16 +79,6 @@ export class ServicesRepository {
           item.created_at,
         ];
         await this.databaseConnection.query(insertQuery, values);
-
-        const selectQuery = `SELECT order_service FROM pending_services WHERE order_service = '${item.order_service}' AND tss = '${item.tss}'`;
-        const found = await this.databaseConnection.query(selectQuery);
-
-        if (found.rows.length > 0) {
-          const deleteQuery = `DELETE FROM pending_services WHERE order_service = '${item.order_service}' AND tss = '${item.tss}'`;
-          await this.databaseConnection.query(deleteQuery);
-        } else {
-          continue;
-        }
       }
       const firstItem = payload[0];
 
@@ -125,31 +112,27 @@ export class ServicesRepository {
 
   async insertPendingServices(payload: InsertPendingPayload[]) {
     try {
+      const firstItem = payload[0];
+      const pendingQuery = `delete from pending_services where origin = '${firstItem.origin}'`;
+      console.log("DELETE PENDING: ", pendingQuery);
+      await this.databaseConnection.query(pendingQuery);
       for (const item of payload) {
-        const selectQuery = `SELECT order_service FROM completed_services WHERE order_service = '${item.order_service}' AND tss = '${item.tss}'`;
-        const found = await this.databaseConnection.query(selectQuery);
-
-        if (found.rows.length > 0) {
-          continue;
-        } else {
-          const insertQuery = `
+        const insertQuery = `
             INSERT INTO pending_services (origin, order_service, tss, start_date, address, city, status, created_at) 
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT DO NOTHING
           `;
-          const values = [
-            item.origin,
-            item.order_service,
-            item.tss,
-            item.start_date,
-            item.address,
-            item.city,
-            item.status,
-            item.created_at,
-          ];
-          await this.databaseConnection.query(insertQuery, values);
-        }
+        const values = [
+          item.origin,
+          item.order_service,
+          item.tss,
+          item.start_date,
+          item.address,
+          item.city,
+          item.status,
+          item.created_at,
+        ];
+        await this.databaseConnection.query(insertQuery, values);
       }
-      const firstItem = payload[0];
       if (
         !lastInserts.some(
           (element) =>
@@ -167,7 +150,6 @@ export class ServicesRepository {
           (value) =>
             value.location === firstItem.origin && value.type === "pending"
         );
-        console.log(index);
         lastInserts.splice(index, 1, {
           location: firstItem.origin,
           date: new Date().toISOString(),
