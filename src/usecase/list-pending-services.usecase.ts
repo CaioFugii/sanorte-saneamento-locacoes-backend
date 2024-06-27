@@ -311,13 +311,6 @@ export class ListPendingServicesUseCase {
 
         if (data.tableName === "ARSESP - AGUA") {
           const duration = differenceInHours(finishDate, startDate);
-          if (value.order_service === "2417940606") {
-            console.log(duration);
-            console.log(classification);
-            console.log(finishDate);
-            console.log(startDate);
-          }
-
           if (duration > 96) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
