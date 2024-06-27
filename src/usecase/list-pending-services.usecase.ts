@@ -294,11 +294,9 @@ export class ListPendingServicesUseCase {
       start_date: formatTz(data.start_date, "yyyy-MM-dd HH:mm:ss", {
         timeZone: "America/Sao_Paulo",
       }),
-      finish_date: sub(
-        formatTz(new Date(), "yyyy-MM-dd HH:mm:ss", {
-          timeZone: "America/Sao_Paulo",
-        }),
-        { hours: 3 }
+      finish_date: formatTz(
+        sub(new Date(), { hours: 3 }),
+        "yyyy-MM-dd HH:mm:ss"
       ),
       type,
     };
