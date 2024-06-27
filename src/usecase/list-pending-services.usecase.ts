@@ -276,12 +276,6 @@ export class ListPendingServicesUseCase {
     return true;
   }
 
-  static formatDate(date: Date): string {
-    return formatTz(date, "yyyy-MM-dd HH:mm:ss", {
-      timeZone: "America/Sao_Paulo",
-    });
-  }
-
   static mapTypeService(data: {
     origin: string;
     order_service: string;
@@ -316,6 +310,13 @@ export class ListPendingServicesUseCase {
 
         if (data.tableName === "ARSESP - AGUA") {
           const duration = differenceInHours(finishDate, startDate);
+          if (value.order_service === "2417940606") {
+            console.log(duration);
+            console.log(classification);
+            console.log(finishDate);
+            console.log(startDate);
+          }
+
           if (duration > 96) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
@@ -348,33 +349,33 @@ export class ListPendingServicesUseCase {
           data.summary["Total"] += 1;
         } else if (data.tableName === "ARSESP - REPOSIÇÃO") {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 20) {
+          if (duration >= 20) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 6) {
+          } else if (duration < 6) {
             data.summary["até 6 dias"] += 1;
             classification = "até 6 dias";
-          } else if (duration <= 20) {
+          } else if (duration < 20) {
             data.summary["até 20 dias"] += 1;
             classification = "até 20 dias";
           }
           data.summary["Total"] += 1;
         } else if (data.tableName === "LIGAÇÃO DE AGUA") {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 10) {
+          if (duration >= 10) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 10) {
+          } else if (duration < 10) {
             data.summary["até 10 dias"] += 1;
             classification = "até 10 dias";
           }
           data.summary["Total"] += 1;
         } else if (data.tableName === "LIGAÇÃO DE ESGOTO") {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 10) {
+          if (duration >= 10) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 10) {
+          } else if (duration < 10) {
             data.summary["até 10 dias"] += 1;
             classification = "até 10 dias";
           }
@@ -408,30 +409,30 @@ export class ListPendingServicesUseCase {
           data.tableName === "TROCA KIT/ SONDAGENS/ NÃO VISIVEIS - 3 DIAS"
         ) {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 3) {
+          if (duration >= 3) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 3) {
+          } else if (duration < 3) {
             data.summary["até 3 dias"] += 1;
             classification = "até 3 dias";
           }
           data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 7 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 7) {
+          if (duration >= 7) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 7) {
+          } else if (duration < 7) {
             data.summary["até 7 dias"] += 1;
             classification = "até 7 dias";
           }
           data.summary["Total"] += 1;
         } else if (data.tableName === "AGUA - GERAL - 9 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 9) {
+          if (duration >= 9) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 9) {
+          } else if (duration < 9) {
             data.summary["até 9 dias"] += 1;
             classification = "até 9 dias";
           }
@@ -440,10 +441,10 @@ export class ListPendingServicesUseCase {
           data.tableName === "CAVALETES/ SUPRESSÕES/ INVESTIMENTO - 10 DIAS"
         ) {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 10) {
+          if (duration >= 10) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 10) {
+          } else if (duration < 10) {
             data.summary["até 10 dias"] += 1;
             classification = "até 10 dias";
           }
@@ -452,10 +453,10 @@ export class ListPendingServicesUseCase {
           data.tableName === "PROLONGAMENTO/ HIDRO PREVENTIVO - 30 DIAS"
         ) {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 30) {
+          if (duration >= 30) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 30) {
+          } else if (duration < 30) {
             data.summary["até 30 dias"] += 1;
             classification = "até 30 dias";
           }
@@ -464,10 +465,10 @@ export class ListPendingServicesUseCase {
           data.tableName === "TROCA DE RAMAL/ SONDAGENS/ SOLO/ ENTULHO - 3 DIAS"
         ) {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 3) {
+          if (duration >= 3) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 3) {
+          } else if (duration < 3) {
             data.summary["até 3 dias"] += 1;
             classification = "até 3 dias";
           }
@@ -476,20 +477,20 @@ export class ListPendingServicesUseCase {
           data.tableName === "CONSTRUÇÕES DE PV/ DESCOBRIR / NIVELAR - 9 DIAS"
         ) {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 9) {
+          if (duration >= 9) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 9) {
+          } else if (duration < 9) {
             data.summary["até 9 dias"] += 1;
             classification = "até 9 dias";
           }
           data.summary["Total"] += 1;
         } else if (data.tableName === "PROLONGAMENTOS - 30 DIAS") {
           const duration = differenceInDays(finishDate, startDate);
-          if (duration > 30) {
+          if (duration >= 30) {
             data.summary["Atrasados"] += 1;
             classification = "Atrasados";
-          } else if (duration <= 30) {
+          } else if (duration < 30) {
             data.summary["até 30 dias"] += 1;
             classification = "até 30 dias";
           }
