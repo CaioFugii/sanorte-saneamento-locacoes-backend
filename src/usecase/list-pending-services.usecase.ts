@@ -1,9 +1,9 @@
 import {
-  add,
   differenceInDays,
   differenceInHours,
   isBefore,
   parseISO,
+  sub,
 } from "date-fns";
 import { format as formatTz } from "date-fns-tz";
 import { ServicesRepository } from "../repository/services.repository";
@@ -294,9 +294,12 @@ export class ListPendingServicesUseCase {
       start_date: formatTz(data.start_date, "yyyy-MM-dd HH:mm:ss", {
         timeZone: "America/Sao_Paulo",
       }),
-      finish_date: formatTz(new Date(), "yyyy-MM-dd HH:mm:ss", {
-        timeZone: "America/Sao_Paulo",
-      }),
+      finish_date: sub(
+        formatTz(new Date(), "yyyy-MM-dd HH:mm:ss", {
+          timeZone: "America/Sao_Paulo",
+        }),
+        { hours: 3 }
+      ),
       type,
     };
   }
