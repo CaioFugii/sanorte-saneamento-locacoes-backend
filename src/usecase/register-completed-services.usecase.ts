@@ -34,7 +34,7 @@ export class RegisterCompletedServicesUseCase {
           order_service: data["Número OS"].trim(),
           tss: data["Descrição TSS"].trim(),
           start_date: RegisterCompletedServicesUseCase.getDate(
-            data["Data Início Execução"].trim()
+            data["Data de Competência"].trim()
           ),
           finish_date: RegisterCompletedServicesUseCase.getDate(
             data["Data Fim Execução"].trim()
@@ -78,7 +78,7 @@ export class RegisterCompletedServicesUseCase {
     return (
       data.hasOwnProperty("Número OS") &&
       data.hasOwnProperty("Descrição TSS") &&
-      data.hasOwnProperty("Data Início Execução") &&
+      data.hasOwnProperty("Data de Competência") &&
       data.hasOwnProperty("Data Fim Execução") &&
       data.hasOwnProperty("Endereço") &&
       data.hasOwnProperty("Município") &&

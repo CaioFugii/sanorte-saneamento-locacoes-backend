@@ -7,7 +7,6 @@ import {
 } from "date-fns";
 import { format as formatTz } from "date-fns-tz";
 import { ServicesRepository } from "../repository/services.repository";
-import { HttpError } from "../shared/http-error";
 
 const mappedServices = {
   "ARREBENTADO DE REDE DE AGUA": "ARSESP - AGUA",
