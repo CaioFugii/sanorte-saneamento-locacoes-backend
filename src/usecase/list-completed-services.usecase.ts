@@ -231,31 +231,9 @@ const mappedMetrics = {
 };
 export class ListCompletedServicesUseCase {
   constructor(private repository: ServicesRepository) {}
-  async execute(filter: {
-    location: string[];
-    range: { from: string; to: string };
-  }) {
-    if (!filter.range.from || !filter.range.to) {
-      throw new HttpError("Range of dates is required", 400);
-    }
-
-    const filterDate = {
-      from: add(new Date(filter.range?.from), { hours: 3 }),
-      to: add(new Date(filter.range?.to), { hours: 26, minutes: 58 }),
-    };
-
-    const valid = ListCompletedServicesUseCase.validateDates(filterDate);
-
-    if (!valid) {
-      throw new HttpError("Invalid dates", 400);
-    }
-
+  async execute(filter: { location: string }) {
     const resultMalFormatted = await this.repository.findCompletedServices({
       location: filter.location,
-      range: {
-        from: ListCompletedServicesUseCase.formatDate(filterDate.from),
-        to: ListCompletedServicesUseCase.formatDate(filterDate.to),
-      },
     });
 
     const resultWithType = resultMalFormatted.map(

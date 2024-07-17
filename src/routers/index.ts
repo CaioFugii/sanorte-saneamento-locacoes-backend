@@ -10,6 +10,7 @@ import { ServicesRepository } from "../repository/services.repository";
 import { connectionPool } from "../repository/database-connection";
 import multer from "multer";
 import path from "path";
+import { HttpError } from "../shared/http-error";
 
 const storage = multer.diskStorage({
   destination: function (_, __, cb) {
@@ -51,6 +52,37 @@ const upload = multer({
 });
 const router = Router();
 
+const availableLocations = {
+  STS: "Santos",
+  CBT: "Cubatão",
+  SSB: "São Sebastião",
+  ILB: "Ilha bela",
+  SVT: "São Vicente",
+  GUJ: "Guarujá",
+  BTG: "Bertioga",
+};
+
+const validateLocation = (locations: string[], selectedLocation: string) => {
+  if (!selectedLocation) {
+    throw new HttpError("Location is required", 400);
+  }
+
+  const location = availableLocations[selectedLocation];
+
+  if (!location) {
+    throw new HttpError(`Location not found ${selectedLocation}!`, 404);
+  }
+
+  if (!locations.includes(location)) {
+    throw new HttpError(
+      `User not allowed to select this location: ${selectedLocation}`,
+      403
+    );
+  }
+
+  return location;
+};
+
 router.post("/login", (req: Request, res: Response, next: NextFunction) => {
   try {
     const usecase = new LoginUseCase();
@@ -69,36 +101,16 @@ router.get(
   middlewares.authToken,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { location, role } = JSON.parse(req.headers.authorization);
+      const { locations } = JSON.parse(req.headers.authorization);
 
-      const rangeFrom = (req.query?.from as string) || "";
-      const rangeTo = (req.query?.to as string) || "";
       const queryLocation = req.query?.location as string;
 
-      if (!queryLocation) {
-        throw new Error("Location is required");
-      }
+      const location = validateLocation(locations, queryLocation);
 
-      const availableLocations = {
-        SC: "Santos - Cubatão",
-        SI: "São Sebastião - Ilha bela",
-        SV: "São Vicente",
-        GB: "Guarujá e Bertioga",
-      };
-
-      const selectedLocation = availableLocations[queryLocation];
-
-      let filterLocation = null;
-      if (role === "admin" && location === "*") {
-        filterLocation = [selectedLocation];
-      } else {
-        filterLocation = [location];
-      }
       const repository = new ServicesRepository(connectionPool);
       const usecase = new ListCompletedServicesUseCase(repository);
       const response = await usecase.execute({
-        location: filterLocation,
-        range: { from: rangeFrom, to: rangeTo },
+        location,
       });
 
       return res.status(200).json(response ?? []);
@@ -114,37 +126,16 @@ router.get(
   middlewares.authToken,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { location, role } = JSON.parse(req.headers.authorization);
+      const { locations } = JSON.parse(req.headers.authorization);
 
       const queryLocation = req.query?.location as string;
 
-      if (!queryLocation) {
-        throw new Error("Location is required");
-      }
+      const location = validateLocation(locations, queryLocation);
 
-      const availableLocations = {
-        SC: "Santos - Cubatão",
-        SI: "São Sebastião - Ilha bela",
-        SV: "São Vicente",
-        GB: "Guarujá e Bertioga",
-      };
-
-      const selectedLocation = availableLocations[queryLocation];
-
-      if (!selectedLocation) {
-        throw new Error("Valid location is required");
-      }
-
-      let filterLocation = null;
-      if (role === "admin" && location === "*") {
-        filterLocation = [selectedLocation];
-      } else {
-        filterLocation = [location];
-      }
       const repository = new ServicesRepository(connectionPool);
       const usecase = new ListPendingServicesUseCase(repository);
       const response = await usecase.execute({
-        location: filterLocation,
+        location,
       });
 
       return res.status(200).json(response ?? []);
@@ -162,11 +153,14 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { path } = req.file;
-      const { location } = JSON.parse(req.headers.authorization);
+      const { locations, role } = JSON.parse(req.headers.authorization);
+
+      const queryLocation = req.query?.location as string;
+      const location = validateLocation(locations, queryLocation);
       console.log(`PAYLOAD Headers: ${location}, file: ${path}`);
       const repository = new ServicesRepository(connectionPool);
       const usecase = new RegisterCompletedServicesUseCase(repository);
-      await usecase.execute(path, location);
+      await usecase.execute(path, location, role);
       return res.status(200).send();
     } catch (error) {
       console.error(error);
@@ -182,11 +176,13 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { path } = req.file;
-      const { location } = JSON.parse(req.headers.authorization);
+      const { locations, role } = JSON.parse(req.headers.authorization);
+      const queryLocation = req.query?.location as string;
+      const location = validateLocation(locations, queryLocation);
       console.log(`PAYLOAD Headers: ${location}, file: ${path}`);
       const repository = new ServicesRepository(connectionPool);
       const usecase = new RegisterPendingServicesUseCase(repository);
-      await usecase.execute(path, location);
+      await usecase.execute(path, location, role);
       return res.status(200).send();
     } catch (error) {
       console.error(error);
@@ -200,28 +196,15 @@ router.get(
   middlewares.authToken,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const { locations } = JSON.parse(req.headers.authorization);
       const queryLocation = req.query?.location as string;
+      const location = validateLocation(locations, queryLocation);
 
-      if (!queryLocation) {
-        throw new Error("Location is required");
-      }
-
-      const availableLocations = {
-        SC: "Santos - Cubatão",
-        SI: "São Sebastião - Ilha bela",
-        SV: "São Vicente",
-        GB: "Guarujá e Bertioga",
-      };
-
-      const selectedLocation = availableLocations[queryLocation];
-
-      if (!selectedLocation) {
-        throw new Error("Valid Location is required");
-      }
+      console.log(location);
 
       const repository = new ServicesRepository(connectionPool);
       const usecase = new ListLastInsertsUseCase(repository);
-      const response = await usecase.execute(selectedLocation);
+      const response = await usecase.execute(location);
 
       return res.status(200).json(response);
     } catch (error) {

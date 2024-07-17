@@ -1,7 +1,8 @@
 import { sign, verify } from "jsonwebtoken";
 
 type PayloadToken = {
-  location: string;
+  user: string;
+  locations: string[];
   role: string;
 };
 

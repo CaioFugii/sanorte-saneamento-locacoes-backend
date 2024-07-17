@@ -28,15 +28,10 @@ export class ServicesRepository {
   constructor(public databaseConnection: Client) {
     this.databaseConnection = databaseConnection;
   }
-  async findCompletedServices(filter: {
-    location: string[];
-    range: { from: string; to: string };
-  }) {
+  async findCompletedServices(filter: { location: string }) {
     try {
-      const location = filter.location
-        .map((location) => `'${location}'`)
-        .join(", ");
-      const query = `SELECT * FROM completed_services WHERE origin IN (${location}) AND finish_date >= '${filter.range.from}' AND finish_date <= '${filter.range.to}' ORDER BY finish_date DESC`;
+      const location = filter.location;
+      const query = `SELECT * FROM completed_services WHERE origin = '${location}' ORDER BY finish_date DESC`;
       console.log(query);
       const result = await this.databaseConnection.query(query);
       return result.rows ?? [];
@@ -45,12 +40,10 @@ export class ServicesRepository {
     }
   }
 
-  async findPendingServices(filter: { location: string[] }) {
+  async findPendingServices(filter: { location: string }) {
     try {
-      const location = filter.location
-        .map((location) => `'${location}'`)
-        .join(", ");
-      const query = `SELECT * FROM pending_services WHERE origin IN (${location}) ORDER BY start_date DESC`;
+      const location = filter.location;
+      const query = `SELECT * FROM pending_services WHERE origin = '${location}' ORDER BY start_date DESC`;
       console.log(query);
       const result = await this.databaseConnection.query(query);
       return result.rows ?? [];
@@ -61,6 +54,11 @@ export class ServicesRepository {
 
   async insertCompletedServices(payload: InsertCompletedPayload[]) {
     try {
+      const firstItem = payload[0];
+      const deleteQuery = `delete from completed_services where origin = '${firstItem.origin}'`;
+      console.log("DELETE COMPLETED: ", deleteQuery);
+      await this.databaseConnection.query(deleteQuery);
+
       for (const item of payload) {
         const insertQuery = `
           INSERT INTO completed_services (origin, order_service, tss, start_date, finish_date, address, city, status, result, created_at) 
@@ -80,7 +78,6 @@ export class ServicesRepository {
         ];
         await this.databaseConnection.query(insertQuery, values);
       }
-      const firstItem = payload[0];
 
       if (
         !lastInserts.some(
@@ -188,7 +185,7 @@ export class ServicesRepository {
     }
 
     const getQuery = (type: string) =>
-      `SELECT * FROM ${type}_services WHERE origin = '${location}' ORDER BY created_at DESC LIMIT 1`;
+      `SELECT created_at FROM ${type}_services WHERE origin = '${location}' ORDER BY created_at DESC LIMIT 1`;
 
     const fetchInsert = async (type: string) => {
       const result = await this.databaseConnection.query(getQuery(type));

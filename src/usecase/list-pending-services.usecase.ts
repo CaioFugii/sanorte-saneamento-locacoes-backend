@@ -230,7 +230,8 @@ const mappedMetrics = {
 };
 export class ListPendingServicesUseCase {
   constructor(private repository: ServicesRepository) {}
-  async execute(filter: { location: string[] }) {
+  async execute(filter: { location: string }) {
+    console.log(filter);
     const resultMalFormatted = await this.repository.findPendingServices({
       location: filter.location,
     });
