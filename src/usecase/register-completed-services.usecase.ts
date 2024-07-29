@@ -5,12 +5,11 @@ import { HttpError } from "../shared/http-error";
 import { sub } from "date-fns";
 export class RegisterCompletedServicesUseCase {
   constructor(private repository: ServicesRepository) {}
-  async execute(pathFile: string, origin: string): Promise<void> {
+  async execute(pathFile: string, origin: string, role: string): Promise<void> {
     try {
-      if (origin === "*") {
-        throw new HttpError("Invalid Origin of file", 400);
+      if (role === "admin") {
+        return;
       }
-
       const workbook = readFile(pathFile);
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
@@ -28,6 +27,7 @@ export class RegisterCompletedServicesUseCase {
         throw new HttpError("Invalid Headers on file", 400);
       }
 
+      const created_at = new Date();
       const dataToSave = jsonData.map((data) => {
         return {
           origin,
@@ -45,7 +45,7 @@ export class RegisterCompletedServicesUseCase {
           city: data["Município"].trim(),
           status: data["Status da OS"].trim(),
           result: data["Resultado"].trim(),
-          created_at: new Date(),
+          created_at,
         };
       });
 
