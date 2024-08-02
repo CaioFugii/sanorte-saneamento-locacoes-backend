@@ -7,9 +7,6 @@ export class RegisterPendingServicesUseCase {
   constructor(private repository: ServicesRepository) {}
   async execute(pathFile: string, origin: string, role: string): Promise<void> {
     try {
-      if (role === "admin") {
-        return;
-      }
       const workbook = readFile(pathFile);
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
